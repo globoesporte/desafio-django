@@ -11,7 +11,7 @@ class Survey(models.Model):
 
 class Option(models.Model):
     description = models.CharField(max_length=30)
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    survey = models.ForeignKey(Survey, related_name='options', on_delete=models.CASCADE)
     position = models.IntegerField()
     votes = models.IntegerField(default=0)
 
