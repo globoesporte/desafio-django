@@ -1,0 +1,32 @@
+
+
+<html>
+    <head>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+        
+ <body>
+     <h2>Lista de Enquetes</h2>
+     <div class="col-lg-6">
+        <div class="list-group ">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">Enquetes</h5>
+                        </div>
+                        
+                        <p class="mb-1"> Enquetes Ativas</p>
+                        <small>Globo.com</small>
+                      </a>
+                {% for profile in profiles %} 
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Nome:{{ profile.nome }}</h5>
+                  </div>
+                  
+                  <p class="mb-1">Descrição:{{ profile.descricao }}</p>
+                  <small>Data : {{ profile.data_criacao }}</small>
+                </a>
+                {% endfor %}
+        </div>
+    </div>  
+    </body></html>

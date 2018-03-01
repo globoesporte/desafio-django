@@ -1,0 +1,25 @@
+{% load rest_framework %}
+
+<html>
+        <head>
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+            </head>
+
+<body>
+
+<h1>Profile - {{ profile.name }}</h1>
+
+<div class="form-group col-sm-4">
+    <form class="form-horizontal" action="{% url 'enquete-detail' pk=profile.id %}" method="put">
+        {% csrf_token %}
+        {% render_form serializer template_pack='rest_framework/vertical' %}
+        <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-default" onclick="form.submit()">Editar</button>
+                </div>
+            </div>
+    </form>
+</div>
+
+</body></html>

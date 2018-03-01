@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from api.models import Enquete, Item, Voto
 from rest_framework import serializers
 
 
@@ -12,3 +13,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
+
+
+class EnqueteSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Enquete
+        fields = ('nome', 'descricao', 'data_criacao')

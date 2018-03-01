@@ -26,8 +26,10 @@ router.register(r'groups', views.GroupViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
+    url(r'^enquete/$', views.EnqueteList.as_view()),
+    url(r'^enquete/(?P<pk>[0-9]+)/$', views.EnqueteDetail.as_view(), name='enquete-detail'),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls)
 ]
 
