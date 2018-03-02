@@ -1,32 +1,50 @@
 
 
 <html>
-    <head>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    </head>
-        
- <body>
+  <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+      <style>
+              .bd-example {
+                  position: relative;
+                  padding: 1rem;
+                  margin: 1rem -15px 0;
+                      margin-right: -15px;
+                      margin-left: 20px;
+                  border: solid #f7f7f9;
+                      border-top-width: medium;
+                      border-right-width: medium;
+                      border-bottom-width: medium;
+                      border-left-width: medium;
+                  border-width: .2rem 0 0;
+              }
+      </style>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
+      <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
+  </head>
+ <body ng-app="enqueteApp" ng-controller="enqueteEditController" ng-init="obterTodos();">
      <h2>Lista de Enquetes</h2>
-     <div class="col-lg-6">
-        <div class="list-group ">
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">Enquetes</h5>
-                        </div>
-                        
-                        <p class="mb-1"> Enquetes Ativas</p>
-                        <small>Globo.com</small>
-                      </a>
-                {% for profile in profiles %} 
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Nome:{{ profile.nome }}</h5>
-                  </div>
-                  
-                  <p class="mb-1">Descrição:{{ profile.descricao }}</p>
-                  <small>Data : {{ profile.data_criacao }}</small>
-                </a>
-                {% endfor %}
-        </div>
+     <div class="form-control bd.example">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Data</th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr ng-repeat="e in enquetes">
+                <th scope="row">{{ e.id }}</th>
+                <td ><input type="text" ng-model="e.id" value="e.nome" /></td>
+                <td><text>{{ enquete.descricao }}</text></td>
+                <td>{{ enquete.data_criacao }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="list-group" ng-repeat="product in names">{{ product }} - teste </div>
+    </div>
     </div>  
     </body></html>
