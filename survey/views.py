@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
-
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from .models import Survey, Option
 from .serializer import SurveySerializer, OptionSerializer
 from rest_framework.response import Response
@@ -8,6 +9,11 @@ from rest_framework import status
 
 
 class SurveyInfo(APIView):
+    # Usando o BasicAuthentication para fazer a autenticação sem entrar em mais detalhes.
+    # Para usar esse código em produção, recomenda-se usar a autenticação via token
+    # Se quiser mesmo usar a BasicAuthentication em produção, ao menos utilize HTTPS
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
     serializerClass = SurveySerializer
 
     def get(self, request, pk):
@@ -74,7 +80,6 @@ class SurveyInfo(APIView):
         try:
             survey = Survey.objects.get(pk=pk)
             survey.delete()
-            return Response()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -82,4 +87,29 @@ class SurveyInfo(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+class OptionInfo(APIView):
+    serializerClass = OptionSerializer
 
+    def post(self, request):
+        """
+        Adiciona um unico voto para uma unica opção
+        exemplo de requição:
+        url:http://localhost:8000/option/
+        body:
+        {
+            "pk": 999
+        }
+        onde "pk" é o id da opção
+        :
+        :param request:
+        :return:
+        """
+        try:
+            pk = request.data["pk"]
+            option = Option.objects.get(pk=pk)
+            option.add_vote()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except RuntimeError:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
