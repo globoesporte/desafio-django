@@ -3,10 +3,12 @@ from .models import Survey, Option
 
 
 class OptionSerializer(serializers.ModelSerializer):
+    survey = serializers.PrimaryKeyRelatedField(queryset=Survey.objects.all())
+
     class Meta:
         model = Option
         depth = 1
-        fields = ['id', 'description', 'position', 'votes']
+        fields = ['id', 'description', 'position', 'votes', 'survey']
 
     def update(self, instance, validated_data):
         """
@@ -19,6 +21,17 @@ class OptionSerializer(serializers.ModelSerializer):
         instance.votes = validated_data.get('votes', instance.votes)
         instance.save()
         return instance
+
+    def create(self, validated_data):
+        """
+        Cria uma nova opção
+        :param validated_data:
+        :return:
+        """
+        print(validated_data)
+        option = Option.objects.create(**validated_data)
+
+        return option
 
 
 class SurveySerializer(serializers.ModelSerializer):

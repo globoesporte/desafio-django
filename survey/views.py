@@ -179,5 +179,34 @@ class OptionPrivate(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
 
-    #def post(self,request):
+    def post(self, request):
+        """
+        Cria uma nova opcao de enquete.
+        url: http://localhost:8000/option/
+        body:
+        {
+            "survey_id": 1,
+            "description": "rabanada",
+            "position": 6
+
+        }
+        :param request:
+        :return:
+        """
+
+        try:
+            survey_id = request.data["survey"]
+            survey = Survey.objects.get(pk=survey_id) # Só checando se a enquete existe mesmo
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except RuntimeError:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        print(request.data)
+        serializer = self.serializerClass(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
+
     #def delete:
