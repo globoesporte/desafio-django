@@ -8,6 +8,18 @@ class OptionSerializer(serializers.ModelSerializer):
         depth = 1
         fields = ['id', 'description', 'position', 'votes']
 
+    def update(self, instance, validated_data):
+        """
+        Faz atualização em uma opção ja existente
+        :param instance:
+        :param validated_data:
+        """
+        instance.position = validated_data.get('position', instance.position)
+        instance.description = validated_data.get('description', instance.description)
+        instance.votes = validated_data.get('votes', instance.votes)
+        instance.save()
+        return instance
+
 
 class SurveySerializer(serializers.ModelSerializer):
     options = OptionSerializer(many=True)

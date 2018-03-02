@@ -19,6 +19,9 @@ class SurveyPrivate(APIView):
     def get(self, request, pk):
         """
         Retorna todas as enquetes caso não tenha passado um PK ou retorna uma enquete específica caso tenha passado um PK
+        url: http://localhost:8000/survey/<id da enquete> para uma enquete específica
+        ou
+        url: http://localhost:8000/survey/ para todas as enquetes
         :param request:
         :param pk:
         :exception ObjectDoesNotExist
@@ -38,6 +41,7 @@ class SurveyPrivate(APIView):
     def post(self, request, pk):
         """
         Cria uma nova enquete. Exemplo de enquete criada
+        url: http://localhost:8000/survey/
         {
             "name": "Qual sua comida favorita?",
             "description": "Escolha sua comida favorita",
@@ -68,9 +72,10 @@ class SurveyPrivate(APIView):
         """
         Atualiza os dados de uma nova enquete
         url: http://localhost:8000/survey/<id da enquete>
+        body:
         {
-            "name" : "Lista de sex symbols",
-            "description": "soh coisa linda de deus"
+            "name" : "Lista de comidas",
+            "description": "Escolha a comida mais gostosa"
         }
         :param request:
         :param pk:
@@ -93,6 +98,7 @@ class SurveyPrivate(APIView):
     def delete(self, request, pk):
         """
         Deleta uma enquete
+        url: http://localhost:8000/survey/<id da enquete>
         :param request:
         :param pk:
         :exception ObjectDoesNotExist
@@ -116,12 +122,12 @@ class OptionPublic(APIView):
         """
         Adiciona um unico voto para uma unica opção
         exemplo de requição:
-        url:http://localhost:8000/option/
+        url:http://localhost:8000/vote
         body:
         {
-            "pk": 999
+            "id": 999
         }
-        onde "pk" é o id da opção
+        onde "id" é o id da opção
         :
         :param request:
         :return:
@@ -145,4 +151,33 @@ class OptionPrivate(APIView):
     permission_classes = (IsAuthenticated,)
     serializerClass = OptionSerializer
 
-    # def put(self,request):
+    def put(self, request, pk):
+        """
+        Atualiza os dados de uma opção de enquete
+        url: http://localhost:8000/option/<id da enquete>
+        body:
+        {
+            "description": "coxinha",
+            "votes" : 50,
+            "position": 10
+
+        }
+        :param request:
+        :param pk:
+        :return:
+        """
+        # Tem que colocar o partial = true senão ele tenta validar todos os campos,
+        # campos obrigatórios que não foram passados como parametros irão disparar exceções
+        try:
+            survey = Option.objects.get(pk=pk)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = self.serializerClass(survey, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
+
+    #def post(self,request):
+    #def delete:
