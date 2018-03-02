@@ -18,4 +18,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class EnqueteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enquete
-        fields = ('nome', 'descricao', 'data_criacao')
+        fields = ('id', 'uuid', 'nome', 'descricao', 'data_criacao')
+
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ('id', 'uuid', 'nome', 'descricao', 'data_criacao')

@@ -58,33 +58,44 @@ enqueteApp
                  });
         }
 
+        $scope.excluir = function(obj)
+        {
+            console.log(obj);
+            $http.delete(urlService.obterUrl(urlService.Urls.EXCLUIR, obj.e.id), $scope.enquete)
+                 .then(function(response)
+                 {
+                    urlService.redirecionar(urlService.Urls.ALL);
+
+                 }, function(response)
+                 {
+                    alert('Houve um erro ao excluir');
+                 });
+        }
+
         $scope.obterTodos = function() 
         {
-            $scope.names = ['Ben', 'Nate', 'Austin', 'Yiannis', 'Matt M', 'Matt B'];
+            $scope.data = {};
 
             $http.get(urlService.obterUrl(urlService.Urls.LISTAR))
                  .then(function(response)
                  {
-                    $scope.enquetes = [];
+                    $scope.enquetes = []; //inicializa
 
-                    if (!response.data) {
-                        return false;
-                    }
+                     if (!response.data) {
+                         return false;
+                     }
 
-                    response.data.forEach(element => {
-                        var e ={
-                            nome : element.nome,
-                            descricao : element.descricao,
-                            data_criacao : new Date(element.data_criacao),
-                            id :  element.id
-                        };
+                      response.data.forEach(element => {
+                          var e ={
+                              nome : element.nome,
+                              descricao : element.descricao,
+                              data_criacao : new Date(element.data_criacao),
+                              id :  element.id
+                          };
 
-                        $scope.enquetes.push(e);
+                          $scope.enquetes.push(e);
 
-                    }); 
-
-                    console.log($scope.enquetes);
-
+                      }); 
                  }, function()
                  {
                     alert('Houve um erro ao obter Todos');
@@ -151,6 +162,8 @@ enqueteApp.config([
     function($httpProvider, $interpolateProvider, $scope, $http) {
         $interpolateProvider.startSymbol('{$');
         $interpolateProvider.endSymbol('$}');
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
         $httpProvider.defaults.withCredentials = true;
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -161,3 +174,4 @@ enqueteApp.config([
     run(['$http','$cookies', function($http, $cookies) {
         $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
     }]);
+   

@@ -1,4 +1,8 @@
 <div class="form-group">
+        <a class="glyphicon glyphicon-arrow-left" href="/enquete/all">Retornar</a> 
+</div>
+<div class="form-group">
+        
         <div class="bd-example col-sm-6" ng-app="enqueteApp" ng-controller="enqueteEditController" ng-init="init({{pk}});">
             <form class="form-horizontal" action="{% url 'enquete-new'  %}" method="post">
                         {% csrf_token %}
@@ -12,7 +16,7 @@
                 <input type="text" class="form-control" id="descricaoInput" placeholder="Entre com a descrição" ng-model="enquete.descricao">
                 <small id="descricaoHelp" class="form-text text-muted">Descrição da enquete</small>
             </div>
-            <button type="button" class="btn btn-default" ng-click="editar();">Alterar</button>  
+             <button type="button" class="btn btn-default" ng-click="editar();">Alterar</button>  
             </form>
         </div>
     </div>
