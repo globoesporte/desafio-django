@@ -1,0 +1,2 @@
+web: gunicorn home_site.wsgi --log-file - 
+worker: celery -A home_site worker -l info

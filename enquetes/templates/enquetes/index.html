@@ -1,0 +1,137 @@
+{% load static %} {% load custom_tags %}
+<header>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/radio.css' %}" />
+
+    <div class="jumbotron" style="background-color: #2d7502;color: #328b00;">
+        <div style="display:flex;padding : 0.5em;">
+
+            <img style="height: 5em;margin-top: 1.2em;" src={% static 'images/logo-ge.svg' %} class="logo" alt="logo">
+            <span style="background-color: #2d7502;color: #42c003; font-size: 3em">nquetes</span>
+        </div>
+
+        <p style="color: #428b00;font-size:1.5em;"> Esta é a resposta ao
+            <a href="https://github.com/globoesporte/desafio-django">
+                <strong style="color: #62ab00;font-size:1.5em;">desafio</strong>
+            </a> do
+            <a href="http://www.globoesporte.com">
+                <strong style="color: #62ab00;font-size:1.5em;">globoesporte.com</strong>
+            </a>
+            por
+            <a href="http://github.com/rsixel/desafio-django">
+                <strong style="color: #62ab00;font-size:1.5em;">Ricardo Sixel.</strong>
+            </a>
+        </p>
+
+    </div>
+
+</header>
+
+<script>
+
+    function showModal() {
+        $('#mensagemModal').modal({
+            keyboard: false
+        })
+    }
+
+    var refreshTimeout = none;
+
+    function resetTimeout(){
+        refreshTimeout = setTimeout(function(){ location.reload(); }, 10000);
+    }
+
+</script> 
+
+{% if messages %}
+
+<body onload="showModal();resetTimeout()">
+
+    {% for message in messages %}
+    
+    
+    <div id="mensagemModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Votação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ message }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %} {% else %}
+
+    <body onLoad="resetTimeout();">
+        {% endif %} {% if ultimas_enquetes %}
+        <div class="container">
+
+
+            <div class="row">
+                {% for enquete in ultimas_enquetes %}
+                <div class="col-md-4">
+
+
+                    <form action="{% url 'enquetes:votar' enquete.id %}" method="post" onsubmit="clearTimeout(refreshTimeout);">
+                        {% csrf_token %}
+
+                        <div class="card ">
+                            <div class="card-header" style="background-color: #D0D0D0">
+                                <h3 class="card-title">{{ enquete.texto }}</h3>
+                            </div>
+                            <div class="card-body">
+
+                                {% for resposta in enquete.respostas.all %}
+
+                                <label class="radio-container">
+                                    <strong class="resposta">{{ resposta.opcao }}</strong>
+                                    <input type="radio" name="resposta" id="resposta{{ forloop.counter }}" value="{{ resposta.id }}" />
+                                    <span class="radio-checkmark"> </span>
+                                </label>
+
+                               
+                                <span class="pull-right">{{resposta.votos}}</span>
+
+                                <div class="progress ">
+                                    <div class="progress-bar bg-success" style="width: {% percentual resposta.votos enquete.votos %}%;"></div>
+                                </div>
+
+                                {% endfor %}
+                            </div>
+                            <div class="card-footer">
+                                <input class="btn btn-large btn-success" type="submit" value="Votar" />
+                                <span class="float-right align-middle">{{enquete.votos}} votos</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+        {% else %}
+        <h3>Não há enquetes publicadas.</h3>
+        {% endif %}
+
+    </body>
