@@ -30,6 +30,12 @@ class Option(Base):
         blank=True,
     )
 
+    poll = models.ForeignKey(
+        'Poll', 
+        on_delete=models.CASCADE,
+        related_name='options_poll'
+    )
+
     class Meta:
         verbose_name = "Option"
 
@@ -64,6 +70,7 @@ class Vote(Base):
     options = models.ForeignKey(
         'Option', 
         on_delete=models.CASCADE,
+        related_name='votes_option'
     )
 
     class Meta:

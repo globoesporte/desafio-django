@@ -4,7 +4,9 @@ from polls.models import Option, Vote, Poll
 
 
 class OptionAdmin(admin.ModelAdmin):
-    list_display = ('text', 'display_image',)
+    list_display = ('text', 'display_image','poll',)
+    list_filter = ('poll__title',)
+    search_fields = ['text', 'poll__title']
 
     def display_image(self, obj):
         if obj.image:
@@ -17,7 +19,6 @@ class OptionAdmin(admin.ModelAdmin):
 
 class PollAdmin(admin.ModelAdmin):
     list_display = ('title', 'text','vote_count')
-
     search_fields = ['title']
 
     def vote_count(self, obj):
@@ -27,17 +28,7 @@ class PollAdmin(admin.ModelAdmin):
 class VoteAdmin(admin.ModelAdmin):
     list_display = ('poll', 'options')
     list_filter = ('poll__title',)
-
     search_fields = ['poll__title']
-
-    fieldsets = (
-        ('Poll', {
-            'fields': ('poll',),
-        }),
-        ('Options', {
-            'fields': ('options',),
-        }),
-    )
 
 
 admin.site.register(Option, OptionAdmin)
