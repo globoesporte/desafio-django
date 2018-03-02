@@ -193,7 +193,6 @@ class OptionPrivate(APIView):
         :param request:
         :return:
         """
-
         try:
             survey_id = request.data["survey"]
             survey = Survey.objects.get(pk=survey_id) # Só checando se a enquete existe mesmo
@@ -209,4 +208,21 @@ class OptionPrivate(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
 
-    #def delete:
+    def delete(self, request, pk):
+        """
+        Deleta uma opção
+        url: http://localhost:8000/survey/<id da enquete>
+        :param request:
+        :param pk:
+        :exception ObjectDoesNotExist
+        :exception RuntimeError
+        :return:
+        """
+        try:
+            option = Option.objects.get(pk=pk)
+            option.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except RuntimeError:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
