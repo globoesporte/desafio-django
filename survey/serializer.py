@@ -39,7 +39,7 @@ class SurveySerializer(serializers.ModelSerializer):
         :param instance:
         :param validated_data:
         """
-        instance.nome = validated_data.get('name', instance.name)
+        instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
         instance.save()
         return instance
