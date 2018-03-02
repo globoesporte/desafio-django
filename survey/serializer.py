@@ -34,8 +34,16 @@ class OptionSerializer(serializers.ModelSerializer):
         return option
 
 
+# Serializer usado somente para mostrar as opções de enquete.
+class OptionViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Option
+        depth = 1
+        fields = ['id', 'description', 'position', 'votes']
+
+
 class SurveySerializer(serializers.ModelSerializer):
-    options = OptionSerializer(many=True)
+    options = OptionViewSerializer(many=True)
 
     class Meta:
         model = Survey
