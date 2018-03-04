@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from .models import Survey, Option
+from .serializer import SurveySerializer
 
 
 class GetSurveyTest(APITestCase):
@@ -37,6 +38,29 @@ class SaveSurveyTest(APITestCase):
         self.data = {'name': 'Name', 'description': 'Description'}
 
     def test_can_create_survey(self):
+        """
+        Teste de criação de enquete
+        """
         url = reverse('survey-general')
         response = self.client.post(url, self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+
+class UpdateSurveyTest(APITestCase):
+    def setUp(self):
+        self.superuser = User.objects.create_superuser('admin', 'admin@admin.com', 'adminadmin')
+        self.client.login(username='admin', password='adminadmin')
+        self.survey = Survey.objects.create(name="Name", description="Description")
+        self.data = SurveySerializer(self.survey).data
+        self.data.update({'name': 'Other Name', 'description': 'Other Description'})
+
+    def test_can_update_survey(self):
+        """
+        Teste de atualização da enquete
+        """
+        url = reverse('survey-specific', args=[self.survey.id])
+        response = self.client.put(url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(self.data.get('name'), Survey.objects.get(pk=self.survey.id).name)
+        self.assertEqual(self.data.get('description'), Survey.objects.get(pk=self.survey.id).description)
+
