@@ -9,7 +9,7 @@ urlpatterns = [
      # faz um unico voto (POST)
      path('vote/', OptionPublic.as_view(), name="vote"),
      # Modifica uma opção (PUT)
-     path('option/<int:pk>', OptionPrivate.as_view()),
+     path('option/<int:pk>', OptionPrivate.as_view(), name="option-specific"),
      # Cria uma nova opção (POST)
      path('option/', OptionPrivate.as_view(), name="option-general")
 

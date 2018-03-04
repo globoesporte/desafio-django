@@ -117,6 +117,29 @@ class CreateOptionTest(APITestCase):
         response = self.client.post(url, self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         try:
-            option = Option.objects.get(survey=self.data.get("survey"), description=self.data.get("description"), position=self.data.get("position"))
+            option = Option.objects.get(survey=self.data.get("survey"), description=self.data.get("description"),
+                                        position=self.data.get("position"))
         except ObjectDoesNotExist:
             raise AssertionError("O objeto não existe!!")
+
+
+class UpdateOptionTest(APITestCase):
+    def setUp(self):
+        self.superuser = User.objects.create_superuser('admin', 'admin@admin.com', 'adminadmin')
+        self.client.login(username='admin', password='adminadmin')
+        self.survey = Survey.objects.create(name="Name", description="Description")
+        self.option = Option.objects.create(description="Description", position=1, survey=self.survey)
+        self.data = {'position': 2, 'description': 'Other Description'}
+
+    def test_can_update_option(self):
+        """
+        Teste de atualização de opção
+        """
+        url = reverse('option-specific', args=[self.option.id])
+        response = self.client.put(url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        try:
+            option = Option.objects.get(survey=self.survey.id, description=self.data.get("description")
+                                        , position=self.data.get("position"))
+        except ObjectDoesNotExist:
+            raise AssertionError("O objeto não esta adequado!!")
