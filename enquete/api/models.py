@@ -10,11 +10,14 @@ class Enquete(models.Model):
     descricao = models.CharField(max_length=500, blank=False, null=False)
     data_criacao = models.DateTimeField(default=now, editable=False,  blank=False, null=False)
 
-    def __str__(self):
-        return 
+    class JSONAPIMeta:
+        resource_name = "enquetes"
 
-    def __unicode__(self):
-        return 
+    # def __str__(self):
+    #     return 
+
+    # def __unicode__(self):
+    #     return 
 
 class Item(models.Model):
     id =  models.AutoField(primary_key=True)
@@ -22,14 +25,17 @@ class Item(models.Model):
     nome = models.CharField(max_length=60, blank=False, null=False)
     valor = models.CharField(max_length=20, blank=False, null=False)
     descricao = models.CharField(max_length=500, blank=False, null=False)
-    enquete = models.ForeignKey(Enquete, on_delete=models.CASCADE)
+    enquete = models.ForeignKey(Enquete, on_delete=models.CASCADE, related_name="itens")
     data_criacao = models.DateTimeField(default=now, editable=False, blank=False, null=False)
 
-    def __str__(self):
-        return 
+    class JSONAPIMeta:
+        resource_name = "itens"
 
-    def __unicode__(self):
-        return 
+    # def __str__(self):
+    #     return 
+
+    # def __unicode__(self):
+    #     return 
 
 class Voto(models.Model):
     id =  models.AutoField(primary_key=True)
