@@ -11,6 +11,6 @@ urlpatterns = [
      # Modifica uma opção (PUT)
      path('option/<int:pk>', OptionPrivate.as_view()),
      # Cria uma nova opção (POST)
-     path('option/', OptionPrivate.as_view())
+     path('option/', OptionPrivate.as_view(), name="option-general")
 
 ]

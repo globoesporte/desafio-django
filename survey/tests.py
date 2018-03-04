@@ -32,7 +32,7 @@ class GetSurveyTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
-class SaveSurveyTest(APITestCase):
+class CreateSurveyTest(APITestCase):
     def setUp(self):
         self.superuser = User.objects.create_superuser('admin', 'admin@admin.com', 'adminadmin')
         self.client.login(username='admin', password='adminadmin')
@@ -101,3 +101,22 @@ class VoteTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Option.objects.get(pk=self.option.id).votes, 1)
 
+
+class CreateOptionTest(APITestCase):
+    def setUp(self):
+        self.superuser = User.objects.create_superuser('admin', 'admin@admin.com', 'adminadmin')
+        self.client.login(username='admin', password='adminadmin')
+        self.survey = Survey.objects.create(name="Name", description="Description")
+        self.data = {'position': 1, 'description': 'Description', 'survey': self.survey.id}
+
+    def test_can_create_option(self):
+        """
+        Teste de criação de opção
+        """
+        url = reverse('option-general')
+        response = self.client.post(url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        try:
+            option = Option.objects.get(survey=self.data.get("survey"), description=self.data.get("description"), position=self.data.get("position"))
+        except ObjectDoesNotExist:
+            raise AssertionError("O objeto não existe!!")
