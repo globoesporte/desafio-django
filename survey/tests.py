@@ -73,6 +73,9 @@ class DeleteSurveyTest(APITestCase):
         self.survey = Survey.objects.create(name="Name", description="Description")
 
     def test_can_delete_survey(self):
+        """
+        Teste de deletar enquete
+        """
         url = reverse('survey-specific', args=[self.survey.id])
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -81,4 +84,20 @@ class DeleteSurveyTest(APITestCase):
             raise AssertionError("O objeto ainda existe!!")
         except ObjectDoesNotExist:
             pass # Não precisa fazer nada, o objeto realmente não existe
+
+
+class VoteTest(APITestCase):
+    def setUp(self):
+        self.survey = Survey.objects.create(name="Name", description="Description")
+        self.option = Option.objects.create(description="Description", position=1, survey=self.survey)
+        self.data = {'id': self.option.id}
+
+    def test_can_vote(self):
+        """
+        teste de voto
+        """
+        url = reverse('vote')
+        response = self.client.post(url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Option.objects.get(pk=self.option.id).votes, 1)
 

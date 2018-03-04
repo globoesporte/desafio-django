@@ -7,7 +7,7 @@ urlpatterns = [
      # Mostra uma enquete específica (GET), modifica uma enquete (PUT), remove uma enquete (DELETE)
      path('survey/<int:pk>', SurveyPrivate.as_view(), name="survey-specific"),
      # faz um unico voto (POST)
-     path('vote/', OptionPublic.as_view()),
+     path('vote/', OptionPublic.as_view(), name="vote"),
      # Modifica uma opção (PUT)
      path('option/<int:pk>', OptionPrivate.as_view()),
      # Cria uma nova opção (POST)
