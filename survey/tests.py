@@ -143,3 +143,24 @@ class UpdateOptionTest(APITestCase):
                                         , position=self.data.get("position"))
         except ObjectDoesNotExist:
             raise AssertionError("O objeto não esta adequado!!")
+
+
+class DeleteOptionTest(APITestCase):
+    def setUp(self):
+        self.superuser = User.objects.create_superuser('admin', 'admin@admin.com', 'adminadmin')
+        self.client.login(username='admin', password='adminadmin')
+        self.survey = Survey.objects.create(name="Name", description="Description")
+        self.option = Option.objects.create(description="Description", position=1, survey=self.survey)
+
+    def test_can_update_option(self):
+        """
+        Teste de atualização de opção
+        """
+        url = reverse('option-specific', args=[self.option.id])
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        try:
+            option = Option.objects.get(pk=self.option.id)
+            raise AssertionError("O objeto não foi deletadp!!")
+        except ObjectDoesNotExist:
+            pass
