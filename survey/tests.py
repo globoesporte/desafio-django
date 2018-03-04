@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -63,4 +64,21 @@ class UpdateSurveyTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(self.data.get('name'), Survey.objects.get(pk=self.survey.id).name)
         self.assertEqual(self.data.get('description'), Survey.objects.get(pk=self.survey.id).description)
+
+
+class DeleteSurveyTest(APITestCase):
+    def setUp(self):
+        self.superuser = User.objects.create_superuser('admin', 'admin@admin.com', 'adminadmin')
+        self.client.login(username='admin', password='adminadmin')
+        self.survey = Survey.objects.create(name="Name", description="Description")
+
+    def test_can_delete_survey(self):
+        url = reverse('survey-specific', args=[self.survey.id])
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        try:
+            survey = Survey.objects.get(pk=self.survey.id)
+            raise AssertionError("O objeto ainda existe!!")
+        except ObjectDoesNotExist:
+            pass # Não precisa fazer nada, o objeto realmente não existe
 
