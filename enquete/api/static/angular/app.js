@@ -1,4 +1,4 @@
-var enqueteApp = angular.module('enqueteApp', ['ngCookies']);
+var enqueteApp = angular.module('enqueteApp', ['ngCookies', 'ui.router']);
 /**
  * @ngdoc controller
  * @name adminApp.controller:enquete
@@ -9,7 +9,7 @@ var enqueteApp = angular.module('enqueteApp', ['ngCookies']);
 
  
 enqueteApp
-    .controller('enqueteEditController', ['$scope', '$http', 'urlApi','urlService',  function ($scope, $http, urlApi, urlService) {
+    .controller('enqueteEditController', ['$scope', '$http', 'urlApi','urlService', function ($scope, $http, urlApi, urlService) {
         $scope.enquete = {};
         $scope.url = urlApi();
         
@@ -90,7 +90,8 @@ enqueteApp
                               nome : element.nome,
                               descricao : element.descricao,
                               data_criacao : new Date(element.data_criacao),
-                              id :  element.id
+                              id :  element.id,
+                              itens : element.itens
                           };
 
                           $scope.enquetes.push(e);
@@ -100,6 +101,14 @@ enqueteApp
                  {
                     alert('Houve um erro ao obter Todos');
                  });
+        }
+
+        $scope.openModal = function(id) {
+            ModalService.Open(id);
+        }
+ 
+        $scope.closeModal = function(id){
+            ModalService.Close(id);
         }
 
     }]);
@@ -156,10 +165,8 @@ function urlService(urlApi)
 }
 
    
-enqueteApp.config([
-    '$httpProvider',
-    '$interpolateProvider',
-    function($httpProvider, $interpolateProvider, $scope, $http) {
+enqueteApp.config(['$httpProvider','$interpolateProvider','$stateProvider', '$urlRouterProvider', function($httpProvider, $interpolateProvider, $stateProvider, $urlRouterProvider) {
+        
         $interpolateProvider.startSymbol('{$');
         $interpolateProvider.endSymbol('$}');
         $interpolateProvider.startSymbol('{[{');

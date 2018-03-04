@@ -100,6 +100,13 @@ class ItemList(mixins.ListModelMixin,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+    def get_queryset(self):
+        queryset = Item.objects.all()
+        enquete = self.request.query_params.get('enquete', None)
+        if enquete is not None:
+            queryset = queryset.filter(enquete_id=enquete)
+        return queryset    
+
 class ItemEditView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     

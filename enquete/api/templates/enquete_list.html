@@ -1,6 +1,7 @@
 <html>
   <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="{{ STATIC_URL }}/static/css/modal.css" />
       <style>
               .bd-example {
                   position: relative;
@@ -31,6 +32,8 @@
                 <th class="col">Nome</th>
                 <th class="col">Descrição</th>
                 <th class="col">Data</th>
+                <th class="col">Total de Itens</th>
+                <th class="col">Itens</th>
               </tr>
             </thead>
             <tbody >
@@ -43,12 +46,18 @@
                 <td>{$ e.nome $}</td>
                 <td>{$ e.descricao $}</td>
                 <td>{$ e.data_criacao $}</td>
+                <td>{$ e.itens.length $}</td>
+                <td><a class="glyphicon glyphicon-list-alt" src="/enquete/{$ e.id $}/itens">Listar Itens</a></td> 
               </tr>
             </tbody>
           </table>
     </div>
     </div> 
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
     <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
-    </body></html>
+</body></html>
