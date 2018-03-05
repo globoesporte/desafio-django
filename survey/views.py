@@ -1,4 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .models import Survey, Option
@@ -6,6 +7,16 @@ from .serializer import SurveySerializer, OptionSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+
+
+def survey_list(request):
+    """
+    renderiza um template simples com toda as enquetes
+    :param request:
+    :return:
+    """
+    surveys = Survey.objects.all()
+    return render(request, 'surveys.html', {'surveys': surveys, })
 
 
 class SurveyPrivate(APIView):

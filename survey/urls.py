@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SurveyPrivate, OptionPublic, OptionPrivate
+from .views import SurveyPrivate, OptionPublic, OptionPrivate, survey_list
 
 urlpatterns = [
      # lista todas as enquetes (GET) OU cria uma nova enquete (POST)
@@ -11,6 +11,8 @@ urlpatterns = [
      # Modifica uma opção (PUT)
      path('option/<int:pk>', OptionPrivate.as_view(), name="option-specific"),
      # Cria uma nova opção (POST)
-     path('option/', OptionPrivate.as_view(), name="option-general")
+     path('option/', OptionPrivate.as_view(), name="option-general"),
+     # Template com as enquetes
+     path('surveys/', survey_list)
 
 ]
