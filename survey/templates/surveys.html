@@ -1,21 +1,36 @@
 <!doctype html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Surveys</title>
 </head>
 <body>
-    <h1>Alo madruga!</h1>
     {% for survey in surveys %}
-        <h1>{{ survey.name }}</h1>
-        <ul>
-        {% for option in survey.options.all %}
-            <li>{{ option.description }}</li>
-        {% endfor %}
-        </ul>
+        <div class="table-title">
+            <h1>{{ survey.name }}</h1>
+        </div>
+
+        <table class="table-fill">
+            <thead>
+                <tr>
+                    <th class="text-left">Opção</th>
+                    <th class="text-left">Votos</th>
+                </tr>
+            </thead>
+            <tbody class="table-hover">
+            {% for option in survey.options.all %}
+                <tr>
+                    <td class="text-left">{{ option.description }}</td>
+                    <td class="text-left">{{ option.votes }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     {% endfor %}
 </body>
 </html>
