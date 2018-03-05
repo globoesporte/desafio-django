@@ -1,4 +1,4 @@
-var enqueteApp = angular.module('enqueteApp', ['ngCookies', 'ui.router']);
+var enqueteApp = angular.module('enqueteApp', ['ngCookies']);
 /**
  * @ngdoc controller
  * @name adminApp.controller:enquete
@@ -164,8 +164,7 @@ function urlService(urlApi)
     }
 }
 
-   
-enqueteApp.config(['$httpProvider','$interpolateProvider','$stateProvider', '$urlRouterProvider', function($httpProvider, $interpolateProvider, $stateProvider, $urlRouterProvider) {
+enqueteApp.config(['$httpProvider','$interpolateProvider', function($httpProvider, $interpolateProvider) {
         
         $interpolateProvider.startSymbol('{$');
         $interpolateProvider.endSymbol('$}');

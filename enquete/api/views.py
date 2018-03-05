@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.decorators import api_view, renderer_classes
+import logging
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -111,18 +112,20 @@ class ItemEditView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
     def get(self, request, pk, *args, **kwargs):
-        return Response({'pk' : pk}, template_name = 'item_edit.html')
+        return Response({'id_enquete' : id_enquete}, template_name = 'item_edit.html')
 
 class ItemListView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
     def get(self, request, *args, **kwargs):
-        return Response(template_name = 'item_list.html')
+        id_enquete = self.request.query_params.get('enquete', None)
+        return Response({'id_enquete' : id_enquete}, template_name = 'item_list.html')
 
 class ItemNewView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
     def get(self, request, *args, **kwargs):
-        return Response(template_name = 'item_new.html')
+        id_enquete = self.request.query_params.get('enquete', None)
+        return Response({'id_enquete' : id_enquete}, template_name = 'item_new.html')
     
 

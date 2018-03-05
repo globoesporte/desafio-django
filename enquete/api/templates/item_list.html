@@ -19,11 +19,12 @@
       </style>
   </head>
  <body>
-     <h2>Lista de Enquetes</h2>
+     <h2>Lista de items</h2>
      {% csrf_token %}
-     <div class="form-control bd.example col-sm-8" ng-app="enqueteApp" ng-controller="enqueteEditController" ng-init="obterTodos();">
+     
+     <div class="form-control bd.example col-sm-8" ng-app="enqueteApp" ng-controller="itemEditController" ng-init="obterTodos({{id_enquete}});">
         <div class="form-control">
-            <a class="glyphicon glyphicon-new-window" href="/enquete/new" >Criar nova enquete</a>
+            <a class="glyphicon glyphicon-new-window" href="/item/new/?enquete={{id_enquete}}" >Criar novo item</a>
         </div>
         <table class="table">
             <thead>
@@ -32,22 +33,22 @@
                 <th class="col">Nome</th>
                 <th class="col">Descrição</th>
                 <th class="col">Data</th>
-                <th class="col">Total de Itens</th>
-                <th class="col">Itens</th>
+                <th class="col">Valor</th>
+                <th class="col"></th>
               </tr>
             </thead>
             <tbody >
                 
-              <tr ng-repeat="e in enquetes">
+              <tr ng-repeat="e in items">
                 <th class="row">
                     <a class="glyphicon glyphicon-remove" ng-click="excluir(this);" id="{$ e.id $}" ></a>
-                    <a class="glyphicon glyphicon-edit" placeholder="Entre com nome" href="/enquete/edit/{$ e.id $}"></a>
+                    <a class="glyphicon glyphicon-edit"  href="/item/edit/{$ e.id $}"></a>
                 </th>
                 <td>{$ e.nome $}</td>
                 <td>{$ e.descricao $}</td>
                 <td>{$ e.data_criacao $}</td>
-                <td>{$ e.itens.length $}</td>
-                <td><a class="glyphicon glyphicon-list-alt" href="/item/all/?enquete={$ e.id $}">Listar Itens</a></td> 
+                <td>{$ e.valor $}</td>
+                <td></td> 
               </tr>
             </tbody>
           </table>
@@ -60,4 +61,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
     <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
+    <script src="{{ STATIC_URL }}/static/angular/enquete/itemController.js"></script>
 </body></html>
