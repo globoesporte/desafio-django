@@ -1,3 +1,23 @@
+Rodando o arquivo em Docker:
+É muito simples. Primeiramente instale o composer para facilitar ao processo.https://docs.docker.com/compose/install/#install-compose 
+
+com o composer instalado, basta ir na pasta do projeto e usar os seguintes comandos
+docker-compose run web manage.py migrate
+docker-compose build
+docker-compose up
+
+E imediatamente o docker estará funcionando na porta 8000 do localhost
+
+
+
+
+
+
+
+
+
+
+
 # Desafio Python/Django Globoesporte
 
 Desenvolva uma aplicação para criar, editar e deletar enquetes.
