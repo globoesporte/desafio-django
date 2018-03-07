@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Enquetes Globo Esporte</title>
+</head>
+<body>
+	<ul>
+		{% for poll in polls %}
+			<li><a href="{% url 'polls-detail' poll.pk %}">{{ poll.title }}</a></li>
+		{% empty %}
+			<li>Nenhuma enquete cadastrada.</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>

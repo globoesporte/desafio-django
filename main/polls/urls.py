@@ -1,11 +1,9 @@
 from . import views
-from rest_framework import routers
 
+from django.conf.urls import url, include
 
-router = routers.SimpleRouter()
-
-router.register(r'options', views.OptionViewSet)
-router.register(r'polls', views.PollViewSet)
-router.register(r'vote', views.VoteViewSet)
-
-urlpatterns = router.urls
+urlpatterns = [
+	url(r'^$', views.polls_list, name='polls-list'),
+	url(r'^polls/(?P<pk>\d+)/$', views.polls_detail, name='polls-detail'),
+	url(r'^polls/vote/(?P<poll_pk>\d+)/(?P<option_pk>\d+)/$', views.polls_vote, name='polls-vote'),
+]

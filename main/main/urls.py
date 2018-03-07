@@ -6,6 +6,9 @@ from django.contrib import admin
 urlpatterns = [
 	url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^admin/', admin.site.urls),
-    # my apps
-    url(r'^api/', include('polls.urls')),
+    # API
+    url(r'^api/', include('api.urls')),
+
+    # Main app urls
+    url(r'^', include('polls.urls')),
 ]
