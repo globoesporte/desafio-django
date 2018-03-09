@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Enquetes Globo Esporte</title>
-</head>
-<body>
-	<h2>{{ poll.title }}</h2>
-	<p>{{ poll.text }}</p>
-	<ul>
-		{% for option in poll.options_poll.all %}
-			<li><a href="{% url 'polls-vote' poll.pk option.pk%}">{{ option }}</a></li>
-		{% empty %}
-			<li>Nenhuma opção cadastrada.</li>
-		{% endfor %}
-	</ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="options">
+		<h3 class="subtitle">{{ poll.text }}</h3>
+		<ul class="list" >
+			{% for option in poll.options_poll.all %}
+				<li class="item">
+					<a href="{% url 'polls-vote' poll.pk option.pk%}">
+						{% if option.image %} 
+							<img src="{{ option.image.url }}" alt="{{ option.text }}">
+						{% endif %}
+						<span class="text">{{ option.text }}</span>
+					</a>
+				</li>
+			{% empty %}
+				<li class="item">Nenhuma opção cadastrada.</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

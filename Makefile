@@ -9,8 +9,12 @@ migrations:
 	python main/manage.py migrate
 
 
-teste:
-	python main/manage.py runserver
+test:
+	python main/manage.py test
+
+
+user:
+	python main/manage.py createsuperuser
 
 run:
 	python main/manage.py runserver

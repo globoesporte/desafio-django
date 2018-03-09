@@ -1,0 +1,94 @@
+*{ margin: 0px; padding: 0px; color: #000; font-family: Arial; list-style: none; box-sizing: border-box; font-weight: normal; font-size: 10px; text-decoration: none;}
+/* End of browser's property reset */
+
+/* Commom elements */
+header{
+	background: #3b9c00;
+	padding: 10px;
+}
+
+header h1{
+	display: block;
+	margin: 0 auto;
+	width: 200px;
+}
+
+header h1 a img{
+	display: block;
+	max-width: 100%;
+}
+
+/* Base classes */
+.container{ 
+	padding: 0 10px;
+	margin: 0 auto;
+	max-width: 100%; 
+	width: 960px;
+}
+
+.page_title{
+	border-bottom: 1px solid #ccc;
+	margin: 0px 0px 10px 0px;
+	padding: 10px 0px;
+}
+
+.page_title .title{
+	font-size: 2em;
+}
+
+.subtitle{
+	font-size: 1.7em;
+	margin-bottom: 10px;
+}
+
+/* Polls list page */
+.polls .list{
+	margin-bottom: 5px;
+}
+
+.polls .list .item{
+	margin-bottom: 10px;
+}
+
+.polls .list .item a{
+	font-size: 1.5em;
+}
+
+/* Polls detail page - Options Page */
+.options .list{
+	overflow: hidden;
+}
+
+.options .list .item{
+	float: left;
+	margin: 0px 10px 10px;
+	width: calc(50% - 20px);
+}
+
+.options .list .item img{
+	display: block;
+	max-width: 100%;
+	margin: 0 auto 10px;
+}
+
+.options .list .item .text{
+	display: block;
+	font-size: 1.3em;
+	text-align: center;
+}
+
+/* Vote and Greetings Page */
+.vote .greetings{
+	font-size: 1.3em;
+	margin: 0px 0px 10px;
+	text-align: center;
+}
+
+.vote .back_home{
+	color: #356bd8;
+	display: block;
+	font-size: 1.3em;
+	margin: 0 auto;
+	text-align: center;
+	text-decoration: underline;
+}

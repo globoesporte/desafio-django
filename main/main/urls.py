@@ -11,4 +11,5 @@ urlpatterns = [
 
     # Main app urls
     url(r'^', include('polls.urls')),
-]
+] 
+urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

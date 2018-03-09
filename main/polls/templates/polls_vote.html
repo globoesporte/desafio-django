@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-</head>
-<body>
-	<p>Obrigado por votar na enquete {{ vote.poll.title }} na opção {{ vote.options.text }}</p>
-	<a href="{% url 'polls-list' %}">Voltar para lista de enquetes.</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="vote">
+		<p class="greetings">Obrigado por votar na enquete {{ vote.poll.title }} na opção {{ vote.options.text }} !</p>
+		<a class="back_home" href="{% url 'polls-list' %}">Clique aqui para voltar à lista de enquetes.</a>
+	</div>
+{% endblock %}

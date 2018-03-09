@@ -13,5 +13,5 @@ router.register(r'vote', views.VoteViewSet)
 urlpatterns = router.urls
 
 urlpatterns += [
-	url(r'^', include_docs_urls(title='Globo Esporte API', public=False))
+	url(r'docs', include_docs_urls(title='Globo Esporte API', public=False))
 ]
