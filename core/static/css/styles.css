@@ -7,7 +7,7 @@ body {background:#ccc}
 }
 .box {
 	width:70%;
-	height:200px;
+	height:240px;
 	background:#FFF;
 	margin:40px auto;
 }
@@ -23,6 +23,7 @@ body {background:#ccc}
 }
 .optiontitle{
         margin:0px;
+        height: 50px;
 
 }
 .options {
