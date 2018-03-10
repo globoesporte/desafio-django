@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/surveys/', SurveyActs.as_view(),{'pk': None}),
     path('api/surveys/<int:pk>', SurveyActs.as_view()),
     path('surveys/', SurveyList),
+    path('', SurveyList),
 
 
 ]
