@@ -1,107 +1,285 @@
-    @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+body {background:#ccc}
 
-.radial-progress {
-	@circle-size: 120px;
-	@circle-background: #d6dadc;
-	@circle-color: #97a71d;
-	@inset-size: 90px;
-	@inset-color: #fbfbfb;
-	@transition-length: 1s;
-	@shadow: 6px 6px 10px rgba(0,0,0,0.2);
-	@percentage-color: #97a71d;
-	@percentage-font-size: 22px;
-	@percentage-text-width: 57px;
-
-	margin: 50px;
-	width:  @circle-size;
-	height: @circle-size;
-
-	background-color: @circle-background;
-	border-radius: 50%;
-	.circle {
-		.mask, .fill, .shadow {
-			width:    @circle-size;
-			height:   @circle-size;
-			position: absolute;
-			border-radius: 50%;
-		}
-		.shadow {
-			box-shadow: @shadow inset;
-		}
-		.mask, .fill {
-			-webkit-backface-visibility: hidden;
-			transition: -webkit-transform @transition-length;
-			transition: -ms-transform @transition-length;
-			transition: transform @transition-length;
-			border-radius: 50%;
-		}
-		.mask {
-			clip: rect(0px, @circle-size, @circle-size, @circle-size/2);
-			.fill {
-				clip: rect(0px, @circle-size/2, @circle-size, 0px);
-				background-color: @circle-color;
-			}
-		}
-	}
-	.inset {
-		width:       @inset-size;
-		height:      @inset-size;
-		position:    absolute;
-		margin-left: (@circle-size - @inset-size)/2;
-		margin-top:  (@circle-size - @inset-size)/2;
-
-		background-color: @inset-color;
-		border-radius: 50%;
-		box-shadow: @shadow;
-		.percentage {
-			height:   @percentage-font-size;
-			width:    @percentage-text-width;
-			overflow: hidden;
-
-			position: absolute;
-			top:      (@inset-size - @percentage-font-size) / 2;
-			left:     (@inset-size - @percentage-text-width) / 2;
-
-			line-height: 1;
-			.numbers {
-				margin-top: -@percentage-font-size;
-				transition: width @transition-length;
-				span {
-					width:          @percentage-text-width;
-					display:        inline-block;
-					vertical-align: top;
-					text-align:     center;
-					font-weight:    800;
-					font-size:      @percentage-font-size;
-					font-family:    "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-					color:          @percentage-color;
-				}
-			}
-		}
-	}
-
-	@i: 0;
-	@increment: 180deg / 100;
-	.loop (@i) when (@i <= 100) {
-		&[data-progress="@{i}"] {
-			.circle {
-				.mask.full, .fill {
-					-webkit-transform: rotate(@increment * @i);
-					-ms-transform: rotate(@increment * @i);
-					transform: rotate(@increment * @i);
-				}	
-				.fill.fix {
-					-webkit-transform: rotate(@increment * @i * 2);
-					-ms-transform: rotate(@increment * @i * 2);
-					transform: rotate(@increment * @i * 2);
-				}
-			}
-			.inset .percentage .numbers {
-				width: @i * @percentage-text-width + @percentage-text-width;
-			}
-		}
-		.loop(@i + 1);
-	}
-	.loop(@i);
+.box h3{
+  text-align:center;
+	position:relative;
+	top:0px;
+}
+.box {
+	width:70%;
+	height:200px;
+	background:#FFF;
+	margin:40px auto;
 }
 
+.boxoptions{
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+}
+.optiontitle{
+        margin:0px;
+
+}
+.options {
+    margin: auto;
+    width: 100%;
+}
+   display: inline-block;
+
+
+}
+/*==================================================
+ * Effect 1
+ * ===============================================*/
+.effect1{
+	-webkit-box-shadow: 0 10px 6px -6px #777;
+	   -moz-box-shadow: 0 10px 6px -6px #777;
+	        box-shadow: 0 10px 6px -6px #777;
+
+}
+
+/*==================================================
+ * Effect 2
+ * ===============================================*/
+.effect2
+{
+  position: relative;
+}
+.effect2:before, .effect2:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.effect2:after
+{
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+
+/*==================================================
+ * Effect 3
+ * ===============================================*/
+.effect3
+{
+  position: relative;
+}
+.effect3:before
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+
+/*==================================================
+ * Effect 4
+ * ===============================================*/
+.effect4
+{
+  position: relative;
+}
+.effect4:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  right: 10px;
+  left: auto;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+}
+
+/*==================================================
+ * Effect 5
+ * ===============================================*/
+.effect5
+{
+  position: relative;
+}
+.effect5:before, .effect5:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 25px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 35px 20px #777;
+  -moz-box-shadow: 0 35px 20px #777;
+  box-shadow: 0 35px 20px #777;
+  -webkit-transform: rotate(-8deg);
+  -moz-transform: rotate(-8deg);
+  -o-transform: rotate(-8deg);
+  -ms-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+}
+.effect5:after
+{
+  -webkit-transform: rotate(8deg);
+  -moz-transform: rotate(8deg);
+  -o-transform: rotate(8deg);
+  -ms-transform: rotate(8deg);
+  transform: rotate(8deg);
+  right: 10px;
+  left: auto;
+}
+
+/*==================================================
+ * Effect 6
+ * ===============================================*/
+.effect6
+{
+  	position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.effect6:before, .effect6:after
+{
+	content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.effect6:after
+{
+	right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
+
+/*==================================================
+ * Effect 7
+ * ===============================================*/
+.effect7
+{
+  	position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.effect7:before, .effect7:after
+{
+	content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:0;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.effect7:after
+{
+	right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
+
+/*==================================================
+ * Effect 8
+ * ===============================================*/
+.effect8
+{
+  	position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.effect8:before, .effect8:after
+{
+	content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.effect8:after
+{
+	right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
