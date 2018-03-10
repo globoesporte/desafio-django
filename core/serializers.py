@@ -23,6 +23,8 @@ class SurveySerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.description = validated_data.get('description',
                                                   instance.description)
+        instance.active = validated_data.get('active',
+                                                  instance.active)
         instance.save()
         return instance
 
