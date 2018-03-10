@@ -20,7 +20,7 @@ E imediatamente o docker estará funcionando na porta 8000 do localhost
 
 ## Acessando no Python Anywhere
 
-Para ver o site em deploy no python anywhere, acesse http://ldepaulaf.pythonanywhere.com/ (ainda em processo de deploy)
+Para ver o site em deploy no python anywhere, acesse http://ldepaulaf.pythonanywhere.com/
 
 Para as requisições use o usuario admin e a senha é globoadmin.
 
