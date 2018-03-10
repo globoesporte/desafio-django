@@ -7,6 +7,9 @@ from ..models import Options,Survey
 def percentage(pk,act_votes):
     total_votes=Options.objects.filter(survey__pk=pk).aggregate(Sum('votes'))['votes__sum']
     try:
-        return "{0:.0f}".format(((float(act_votes) / float(total_votes)) * 100))
+        if total_votes > 0:
+            return "{0:.0f}".format(((float(act_votes) / float(total_votes)) * 100))
+        else:
+            return 0
     except ValueError:
         return ''

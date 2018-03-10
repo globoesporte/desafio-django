@@ -54,6 +54,8 @@ class SurveyActs(APIView):
 
 
 class OptionActs(APIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
     def post(self, request):
         serializer = OptionsSerializer(data=request.data, partial=True)
         if serializer.is_valid():
