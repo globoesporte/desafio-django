@@ -26,21 +26,24 @@ Para as requisições use o usuario admin e a senha é globoadmin.
 
 
 ## Endpoints
-Os endpoints são como seguem. Lembrando que o {id} representa o id da enquete ou da opção da enquete, de acordo como o endereço representado. O único que não precisa de autenticação é o /vote
+Os endpoints são como seguem. 
+* <parametro> é opcional
+* {id} é o id da enquete ou opção/voto 
+* O único que não precisa de autenticação é o /vote
 
 | Caminho       | Método | Parametros | Descrição
 | :---          |  :---: |       :---:      | ---: |
 | /api/surveys       | POST   |      description, active       | Cria uma enquete |
 | /api/surveys       | GET    | N/A              | Recupera as informações de todas as enquetes |
-| /api/surveys/{id}    | GET    | N/A              | Recupera as informações de uma única enquete|
-| /api/surveys/{id}    | PUT    | description, active              | Atualiza informações de uma enquete|
-| /api/surveys/{id}    | DELETE | N/A              | Deleta uma enquete|
-| /api/vote/survey\={id}/option\={id}          | POST   | N/A              | Vota em uma única enquete|
-| /api/vote/survey\={id}/old_option\={id}/new_option\={id}        | PUT   | N/A              | Muda seu voto em uma única enquete|
-| /api/vote/survey\={id}/option\={id}          | DELETE   | N/A              | Deleta seu voto em uma única enquete|
+| /api/surveys/\<survey\=\>{id}    | GET    | N/A              | Recupera as informações de uma única enquete|
+| /api/surveys/\<survey\=\>{id}    | PUT    | description, active              | Atualiza informações de uma enquete|
+| /api/surveys/\<survey\=\>{id}    | DELETE | N/A              | Deleta uma enquete|
+| /api/vote/\<survey\=\>{id}/\<option\=\>{id}          | POST   | N/A              | Vota em uma única enquete|
+| /api/vote/\<survey\=\>{id}/\<old_option\=\>{id}/new_option\={id}        | PUT   | N/A              | Muda seu voto em uma única enquete|
+| /api/vote/\<survey\=\>{id}/\<option\=\>{id}          | DELETE   | N/A              | Deleta seu voto em uma única enquete|
 | /api/options      | POST   |  option, survey              | Cria uma nova opção de enquete|
-| /api/options/survey\={id}/option\={id}    | PUT    | option              | Atualiza uma opção de enquete|
-| /api/options/survey\={id}/option\={id}    | DELETE | N/A              | Deleta uma opção de enquete|
+| /api/options/\<survey\=\>{id}/option\={id}    | PUT    | option              | Atualiza uma opção de enquete|
+| /api/options/\<survey\=\>{id}/option\={id}    | DELETE | N/A              | Deleta uma opção de enquete|
 
 ## Autenticação
 Esse projeto utiliza [Basic Access Authetication](https://en.wikipedia.org/wiki/Basic_access_authentication) para fazer a autenticação em todos os endpoints protegidos. Para interagir com esses endpoints, é necessário passar suas credencias no header da chamada. Para facilitar a sua vida, eu recomendo usar o [httpie](https://httpie.org/) (o melhor é feito em python).
