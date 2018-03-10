@@ -1,38 +1,75 @@
 # Desafio Python/Django Globoesporte
 
-Desenvolva uma aplicação para criar, editar e deletar enquetes.
-
-Crie um fork desse projeto, e quando concluído, crie um pull request do seu fork para esse repositório.
-
-Vamos avaliar a organização do seu código e automações então vale tomar esse cuidado
-
-Não existe um tempo determinado pra executar o teste mas ele conta e é levado em concideração Tempo x bonus executados x qualidade do código.
+Aplicação para criar, editar e deletar enquetes.
 
 ---
 
-## Importamte
+## Requerimentos
 
-- Seguir a convenção PEP8
 - Python 3.6
-- Django 1.11 ou superior
-- README com as instruções para rodar o projeto
-- Entregar [API REST](http://www.django-rest-framework.org/) com EndPoints POST, GET, PUT e DELETE
-- O EndPoint para salvar o voto é o unico que não é autenticado
-- Admin com campo para busca e filtros
-- Arquivo requirements.txt na raiz do projeto com todas as dependências
+- Django 1.11
+- Django REST Framework 3.7.7
 
 ---
 
-## Bonus
+## Instalação:
 
-No save dos votos, podemos ter uma carga muito grande de votos. Para solucionar este problema, crie uma fila de votos na memória e descarregue no banco a cada 1 minuto.
+* Recomenda-se utilizar o virtualenvwrapper para trabalhar melhor com as versões utilizadas no projeto e evitar conflitos em outros projetos:
 
-View Django template para a enquete (não precisa ficar bonito, mas não pode ser terrivelmente feio)
+    $ pip install virtualenvwrapper
 
-View Admin com dados interesantes sobre a enquete 
+    $ /usr/local/bin/virtualenvwrapper.sh 
 
-Testes unitários também são bem-vindos
+    $ echo "export WORKON_HOME=~/.virtualenvs" >> ~/.bash_profile
 
-Rodando em ambiente docker e deploy em Heroku ou PythonAnywhere
+    $ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bash_profile 
+
+    $ source ~/.bash_profile  
+
+
+* Após fazer a instalação, podemos seguir com o setup do ambiente e a instalação dos pacotes necessários:
+
+    $ mkvirtualenv enquete-ge
+
+    $ workon enquete-ge
+
+    $ make install
+   
+---
+
+## Utilizando o Makefile:
+
+- Os comandos a seguir devem ser utilizados na raíz do projeto
+
+#####  Iniciando a Aplicação:
+ 
+    $ make run
+
+#####  Aplicando migrações:
+ 
+    $ make migrations
+
+##### Iniciando Testes da Aplicação:
+ 
+    $ make test
+
+##### Criando um novo superusuario:
+ 
+    $ make user
+
+---
+
+## Acessando Django API REST:
+
+##### Documentação detalhada:
+* /api/docs/
+
+##### Urls base:
+* /api/polls/
+* /api/options/
+* /api/vote/
+
+---
+
 
 

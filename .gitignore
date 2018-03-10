@@ -1,0 +1,10 @@
+.DS_Store
+**/*.pyc
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+
+__pycache__/
+main/media/
+main/static/
+

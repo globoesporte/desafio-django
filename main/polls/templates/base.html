@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>globoesporte.com</title>	
+
+	<link rel="stylesheet" href="{% static 'css/enquete.css'%}">
+</head>
+<body>
+	<header>
+		<h1>
+			<a href="{% url 'polls_list' %}">
+				<img src="{% static 'img/logo-globoesporte.png'%}" alt="globoesporte.com">
+			</a>
+		</h1>
+	</header>
+	<main>
+		<div class="container">
+			<div class="page_title">
+				<h2 class="title">{{ page_title|default:'Enquetes' }}</h2>
+			</div>
+			{% block content %}
+			{% endblock %}
+		</div>
+	</main>
+</body>
+</html>

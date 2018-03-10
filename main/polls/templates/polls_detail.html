@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="options">
+		<h3 class="subtitle">{{ poll.text }}</h3>
+		<ul class="list" >
+			{% for option in poll.options_poll.all %}
+				<li class="item">
+					<a href="{% url 'polls_vote' poll.pk option.pk%}">
+						{% if option.image %} 
+							<img src="{{ option.image.url }}" alt="{{ option.text }}">
+						{% endif %}
+						<span class="text">{{ option.text }}</span>
+					</a>
+				</li>
+			{% empty %}
+				<li class="item">Nenhuma opção cadastrada.</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

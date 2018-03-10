@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="polls">
+		<ul class="list">
+			{% for poll in polls %}
+				<li class="item">
+					<a href="{% url 'polls_detail' poll.pk %}">{{ poll.title }}</a>
+				</li>
+			{% empty %}
+				<li class="item">
+					Nenhuma enquete cadastrada.
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
