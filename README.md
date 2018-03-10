@@ -71,16 +71,5 @@ Aplicação para criar, editar e deletar enquetes.
 
 ---
 
-<!-- ## Bonus
-
-No save dos votos, podemos ter uma carga muito grande de votos. Para solucionar este problema, crie uma fila de votos na memória e descarregue no banco a cada 1 minuto.
-
-View Django template para a enquete (não precisa ficar bonito, mas não pode ser terrivelmente feio) (ok)
-
-View Admin com dados interesantes sobre a enquete 
-
-Testes unitários também são bem-vindos
-
-Rodando em ambiente docker e deploy em Heroku ou PythonAnywhere -->
 
 
