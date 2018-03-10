@@ -5,7 +5,7 @@
 		<ul class="list">
 			{% for poll in polls %}
 				<li class="item">
-					<a href="{% url 'polls-detail' poll.pk %}">{{ poll.title }}</a>
+					<a href="{% url 'polls_detail' poll.pk %}">{{ poll.title }}</a>
 				</li>
 			{% empty %}
 				<li class="item">

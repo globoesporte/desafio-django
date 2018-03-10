@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from polls.models import Option, Vote, Poll
+from polls.models import Option, Vote, Poll, PollSummary
 
 
 class OptionAdmin(admin.ModelAdmin):

@@ -3,6 +3,6 @@
 {% block content %}
 	<div class="vote">
 		<p class="greetings">Obrigado por votar na enquete {{ vote.poll.title }} na opção {{ vote.options.text }} !</p>
-		<a class="back_home" href="{% url 'polls-list' %}">Clique aqui para voltar à lista de enquetes.</a>
+		<a class="back_home" href="{% url 'polls_list' %}">Clique aqui para voltar à lista de enquetes.</a>
 	</div>
 {% endblock %}

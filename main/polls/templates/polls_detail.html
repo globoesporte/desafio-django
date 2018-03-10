@@ -6,7 +6,7 @@
 		<ul class="list" >
 			{% for option in poll.options_poll.all %}
 				<li class="item">
-					<a href="{% url 'polls-vote' poll.pk option.pk%}">
+					<a href="{% url 'polls_vote' poll.pk option.pk%}">
 						{% if option.image %} 
 							<img src="{{ option.image.url }}" alt="{{ option.text }}">
 						{% endif %}

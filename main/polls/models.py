@@ -60,6 +60,13 @@ class Poll(Base):
         return self.text
 
 
+class PollSummary(Poll):
+    class Meta:
+        proxy = True
+        verbose_name = 'Poll Summary'
+        verbose_name_plural = 'Polls Summary'
+
+
 class Vote(Base):
     poll = models.ForeignKey(
         'Poll', 

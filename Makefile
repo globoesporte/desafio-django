@@ -10,7 +10,7 @@ migrations:
 
 
 test:
-	python main/manage.py test
+	python main/manage.py test api
 
 
 user:
