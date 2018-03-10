@@ -12,5 +12,6 @@ class SurveyAdmin(admin.ModelAdmin):
 class OptionAdmin(admin.ModelAdmin):
     search_fields = ('description',)
 
+
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(Options, OptionAdmin)

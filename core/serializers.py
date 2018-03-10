@@ -1,16 +1,21 @@
 from rest_framework import serializers
-from  .models import Survey, Options 
+from .models import Survey, Options
+
+
 class OptionViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Options
         depth = 1
         fields = ['id', 'option', 'votes']
 
+
 class SurveySerializer(serializers.ModelSerializer):
     options = OptionViewSerializer(many=True)
+
     class Meta:
         model = Survey
-        fields = ('id', 'description','options','active')
+        fields = ('id', 'description', 'options', 'active')
+
     def create(self, validated_data):
         options_data = validated_data.pop('options', [])
         survey = Survey.objects.create(**validated_data)
@@ -24,15 +29,18 @@ class SurveySerializer(serializers.ModelSerializer):
         instance.description = validated_data.get('description',
                                                   instance.description)
         instance.active = validated_data.get('active',
-                                                  instance.active)
+                                             instance.active)
         instance.save()
         return instance
 
+
 class OptionsSerializer(serializers.ModelSerializer):
     survey = serializers.PrimaryKeyRelatedField(queryset=Survey.objects.all())
+
     class Meta:
         model = Options
-        fields = ('id', 'option','votes','survey')
+        fields = ('id', 'option', 'votes', 'survey')
+
     def create(self, validated_data):
         option = Options.objects.create(**validated_data)
         return option

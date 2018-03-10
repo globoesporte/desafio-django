@@ -8,7 +8,7 @@ from rest_framework.test import (
     force_authenticate,
 )
 
-from core.models import Options,Survey
+from core.models import Options, Survey
 
 
 class TestSurvey(APITestCase):
@@ -31,7 +31,11 @@ class TestSurvey(APITestCase):
     }
 
     def test_createsurveys(self):
-        user = User.objects.create(username='testadm', password='testadm', is_staff=True, is_superuser=True)
+        user = User.objects.create(
+            username='testadm',
+            password='testadm',
+            is_staff=True,
+            is_superuser=True)
         self.client.force_authenticate(user=user)
         response = self.client.post(self.urls['create'], self.createsurvey)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -40,7 +44,11 @@ class TestSurvey(APITestCase):
         self.assertEqual(Survey.objects.get().active, True)
 
     def test_updatesurveys(self):
-        user = User.objects.create(username='testadm', password='testadm', is_staff=True, is_superuser=True)
+        user = User.objects.create(
+            username='testadm',
+            password='testadm',
+            is_staff=True,
+            is_superuser=True)
         survey = Survey.objects.create(description='test_title', active=True)
         self.client.force_authenticate(user=user)
         response = self.client.put(self.urls['update'], self.updatesurvey)
@@ -49,11 +57,16 @@ class TestSurvey(APITestCase):
         self.assertEqual(Survey.objects.get().active, False)
 
     def test_deletesurveys(self):
-        user = User.objects.create(username='testadm', password='testadm', is_staff=True, is_superuser=True)
+        user = User.objects.create(
+            username='testadm',
+            password='testadm',
+            is_staff=True,
+            is_superuser=True)
         survey = Survey.objects.create(description='test_title', active=True)
         self.client.force_authenticate(user=user)
         response = self.client.delete(self.urls['delete'])
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
 
 class TestOption(APITestCase):
     client = APIClient()
@@ -74,18 +87,26 @@ class TestOption(APITestCase):
     }
 
     def test_createoptions(self):
-        user = User.objects.create(username='testadm', password='testadm', is_staff=True, is_superuser=True)
+        user = User.objects.create(
+            username='testadm',
+            password='testadm',
+            is_staff=True,
+            is_superuser=True)
         self.client.force_authenticate(user=user)
         Survey.objects.create(description='test_title', active=True)
         response = self.client.post(self.urls['create'], self.createoption)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Options.objects.count(), 1)
         self.assertEqual(Options.objects.get().option, 'test_option')
-        self.assertEqual(Options.objects.get().survey,Survey.objects.get())
+        self.assertEqual(Options.objects.get().survey, Survey.objects.get())
         self.assertEqual(Options.objects.get().votes, 0)
 
     def test_updateoptions(self):
-        user = User.objects.create(username='testadm', password='testadm', is_staff=True, is_superuser=True)
+        user = User.objects.create(
+            username='testadm',
+            password='testadm',
+            is_staff=True,
+            is_superuser=True)
         self.client.force_authenticate(user=user)
         Survey.objects.create(description='test_title', active=True)
         response = self.client.post(self.urls['create'], self.createoption)
@@ -93,17 +114,21 @@ class TestOption(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Options.objects.count(), 1)
         self.assertEqual(Options.objects.get().option, 'test_option_update')
-        self.assertEqual(Options.objects.get().survey,Survey.objects.get())
+        self.assertEqual(Options.objects.get().survey, Survey.objects.get())
         self.assertEqual(Options.objects.get().votes, 0)
 
-
     def test_deleteoptions(self):
-        user = User.objects.create(username='testadm', password='testadm', is_staff=True, is_superuser=True)
+        user = User.objects.create(
+            username='testadm',
+            password='testadm',
+            is_staff=True,
+            is_superuser=True)
         self.client.force_authenticate(user=user)
         Survey.objects.create(description='test_title', active=True)
         response = self.client.post(self.urls['create'], self.createoption)
         response = self.client.delete(self.urls['delete'])
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
 
 class TestVote(APITestCase):
     client = APIClient()
@@ -117,7 +142,7 @@ class TestVote(APITestCase):
     }
 
     urloption = '/api/options/'
-       
+
     urls = {
         'create': '/api/vote/survey=1/option=1',
         'update': '/api/vote/survey=1/old_option=1/new_option=2',
@@ -125,7 +150,11 @@ class TestVote(APITestCase):
     }
 
     def test_createvote(self):
-        user = User.objects.create(username='testadm', password='testadm', is_staff=True, is_superuser=True)
+        user = User.objects.create(
+            username='testadm',
+            password='testadm',
+            is_staff=True,
+            is_superuser=True)
         self.client.force_authenticate(user=user)
         Survey.objects.create(description='test_title', active=True)
         response = self.client.post(self.urloption, self.createoption)
@@ -133,9 +162,13 @@ class TestVote(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Options.objects.count(), 1)
         self.assertEqual(Options.objects.get().votes, 1)
-    
+
     def test_updatevote(self):
-        user = User.objects.create(username='testadm', password='testadm', is_staff=True, is_superuser=True)
+        user = User.objects.create(
+            username='testadm',
+            password='testadm',
+            is_staff=True,
+            is_superuser=True)
         self.client.force_authenticate(user=user)
         Survey.objects.create(description='test_title', active=True)
         response = self.client.post(self.urloption, self.createoption)
@@ -150,7 +183,11 @@ class TestVote(APITestCase):
         self.assertEqual(Options.objects.get(pk=2).votes, 1)
 
     def test_deletevote(self):
-        user = User.objects.create(username='testadm', password='testadm', is_staff=True, is_superuser=True)
+        user = User.objects.create(
+            username='testadm',
+            password='testadm',
+            is_staff=True,
+            is_superuser=True)
         self.client.force_authenticate(user=user)
         Survey.objects.create(description='test_title', active=True)
         response = self.client.post(self.urloption, self.createoption)
@@ -158,4 +195,3 @@ class TestVote(APITestCase):
         response = self.client.delete(self.urls['delete'])
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Options.objects.get().votes, 0)
-

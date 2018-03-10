@@ -6,15 +6,17 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Survey,Options
-from .serializers import SurveySerializer,OptionsSerializer
+from .models import Survey, Options
+from .serializers import SurveySerializer, OptionsSerializer
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.shortcuts import render
 import sys
 
+
 def SurveyList(request):
     surveys = Survey.objects.all()
     return render(request, 'surveys.html', {'surveys': surveys, })
+
 
 class SurveyActs(APIView):
     """
@@ -22,6 +24,7 @@ class SurveyActs(APIView):
     """
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
+
     def get(self, request, pk):
         if pk:
             surveys = get_object_or_404(Survey, pk=pk)
@@ -31,7 +34,7 @@ class SurveyActs(APIView):
             serializer = SurveySerializer(surveys, many=True)
         return JsonResponse(serializer.data, safe=False)
 
-    def post(self,request, pk):
+    def post(self, request, pk):
         serializer = SurveySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -46,16 +49,17 @@ class SurveyActs(APIView):
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
-    
+
     def delete(self, request, pk):
-            surveys = get_object_or_404(Survey, pk=pk)
-            surveys.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        surveys = get_object_or_404(Survey, pk=pk)
+        surveys.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class OptionActs(APIView):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
+
     def post(self, request):
         serializer = OptionsSerializer(data=request.data, partial=True)
         if serializer.is_valid():
@@ -64,20 +68,20 @@ class OptionActs(APIView):
         else:
             return JsonResponse(serializer.errors, status=400)
 
-
-    def put(self, request, survey,pk):
-        option = get_object_or_404(Options,pk=pk)
-        serializer = OptionsSerializer(option,data=request.data,
-                                       context={'survey': survey}, partial=True)
+    def put(self, request, survey, pk):
+        option = get_object_or_404(Options, pk=pk)
+        serializer = OptionsSerializer(
+            option, data=request.data, context={
+                'survey': survey}, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
 
-    def delete(self,request,survey,pk):
+    def delete(self, request, survey, pk):
         try:
-            option = Options.objects.filter(pk=pk,survey__pk=survey).get()
+            option = Options.objects.filter(pk=pk, survey__pk=survey).get()
             option.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except ObjectDoesNotExist:
@@ -86,23 +90,22 @@ class OptionActs(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
 class VoteActs(APIView):
 
-    def post(self, request, survey,pk):
+    def post(self, request, survey, pk):
         try:
             option = Options.objects.filter(survey__pk=survey).get(pk=pk)
-            option.vote(pk,1)
+            option.vote(pk, 1)
             return Response(status=status.HTTP_201_CREATED)
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         except RuntimeError:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def delete(self,request,survey,pk):
+    def delete(self, request, survey, pk):
         try:
             option = Options.objects.filter(survey__pk=survey).get(pk=pk)
-            option.vote(pk,-1)
+            option.vote(pk, -1)
             return Response(status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -112,14 +115,11 @@ class VoteActs(APIView):
     def put(self, request, survey, pkold, pk):
         try:
             option = Options.objects.filter(survey__pk=survey).get(pk=pkold)
-            option.vote(pkold,-1)
+            option.vote(pkold, -1)
             option = Options.objects.filter(survey__pk=survey).get(pk=pk)
-            option.vote(pk,1)
+            option.vote(pk, 1)
             return Response(status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         except RuntimeError:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
