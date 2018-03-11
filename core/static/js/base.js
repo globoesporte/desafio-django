@@ -28,11 +28,7 @@ $('.perc').each(function(){
 animateValue($(this), 0, 1000, linear);
 
 });
-  setInterval(function() {
-                  window.location.reload();
-                }, 60000);  });
-
-$(".btn").click(function(){ 
+ $(".btn").click(function(){ 
     survey= $(this).attr("survey");
     option= $(this).attr("option");
     votos= $(this).attr("votos");
@@ -43,6 +39,12 @@ $.ajax({
             csrfmiddlewaretoken: csrf_token
         },
 });
+ setInterval(function() {
+                  window.location.reload();
+                }, 60000);  });
+
+
   }); 
+
 
 
