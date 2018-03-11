@@ -29,23 +29,20 @@ animateValue($(this), 0, 1000, linear);
 
 });
 
-$("button").click(function(){ 
+$(".btn").click(function(){ 
     survey= $(this).attr("survey");
     option= $(this).attr("option");
     votos= $(this).attr("votos");
-
 $.ajax({
   url:'/api/vote/survey='+survey+'/option='+option,
   type:'POST',
     data: {
-            csrfmiddlewaretoken:"{{ csrf_token }}"
+            csrfmiddlewaretoken: csrf_token
         },
 });
-    $(this).attr("votos",Number(votos)+1);
-    votos= $(this).attr("votos");
-    $(this).parent().prev("h3").text("votos:"+votos)
-    location.reload();
- });
+    setInterval(function() {
+                  window.location.reload();
+                }, 60000);  });
 }); 
 
 

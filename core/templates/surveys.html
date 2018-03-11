@@ -9,12 +9,25 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet/less" href="{% static 'css/styles.css'%}">
         <link rel="stylesheet/less" href="{% static 'css/radial.css'%}">
+        <link rel="stylesheet/less" href="{% static 'css/remodal.css' %}">
+        <link rel="stylesheet/less" href="{% static 'css/remodal-default-theme.css' %}">
+    <script type='text/javascript'>var csrf_token="{{csrf_token}}"</script>
         <script type="text/javascript" src="//code.jquery.com/jquery-compat-git.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js"></script>
         <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/remodal.min.js' %}"></script>
+
         <title>Surveys</title>
     </head>
     <body>
+        <div class="remodal" data-remodal-id="modal">
+            <button data-remodal-action="close" class="remodal-close"></button>
+            <h1>Thanks for the vote</h1>
+            <p> Your vote will be computed in 1 minute
+                      </p>
+            <br>
+            <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+        </div>
         {% for survey in surveys %}
         <div class="box effect1">
             <div class="title"><h3>{{ survey.description }}</h3></div>
@@ -45,7 +58,7 @@
                         votos: {{ option.votes }}
                     </h3>
                     <div class="container">
-                        <button class="btn" survey={{survey.id}} option={{option.id}} votos={{option.votes}}>Votar</button>
+                        <button class="btn"   data-remodal-target="modal"  survey={{survey.id}} option={{option.id}} votos={{option.votes}}>Votar</button>
                     </div></div>
                     {% endfor %}
             </div>
