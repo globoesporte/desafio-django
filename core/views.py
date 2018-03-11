@@ -6,10 +6,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Survey, Options
-from .serializers import SurveySerializer, OptionsSerializer
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.shortcuts import render
+from .tasks import * 
+from .models import Survey, Options
+from .serializers import SurveySerializer, OptionsSerializer
+
+votes={}
+
 def SurveyList(request):
     surveys = Survey.objects.filter(active=True).all()
     return render(request, 'surveys.html', {'surveys': surveys, })
@@ -91,8 +95,7 @@ class VoteActs(APIView):
 
     def post(self, request, survey, pk):
         try:
-            option = Options.objects.filter(survey__pk=survey).get(pk=pk)
-            option.vote(pk, 1)
+            vote(survey,pk,1)
             return Response(status=status.HTTP_201_CREATED)
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -101,8 +104,7 @@ class VoteActs(APIView):
 
     def delete(self, request, survey, pk):
         try:
-            option = Options.objects.filter(survey__pk=survey).get(pk=pk)
-            option.vote(pk, -1)
+            vote(survey,pk,-1)
             return Response(status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -111,10 +113,8 @@ class VoteActs(APIView):
 
     def put(self, request, survey, pkold, pk):
         try:
-            option = Options.objects.filter(survey__pk=survey).get(pk=pkold)
-            option.vote(pkold, -1)
-            option = Options.objects.filter(survey__pk=survey).get(pk=pk)
-            option.vote(pk, 1)
+            vote(survey,pkold,-1)
+            vote(survey,pk,1)
             return Response(status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
