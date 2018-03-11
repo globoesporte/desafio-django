@@ -11,7 +11,7 @@ from .serializers import SurveySerializer, OptionsSerializer
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.shortcuts import render
 def SurveyList(request):
-    surveys = Survey.objects.all()
+    surveys = Survey.objects.filter(active=True).all()
     return render(request, 'surveys.html', {'surveys': surveys, })
 
 
