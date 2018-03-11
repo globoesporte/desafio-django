@@ -28,6 +28,9 @@ $('.perc').each(function(){
 animateValue($(this), 0, 1000, linear);
 
 });
+  setInterval(function() {
+                  window.location.reload();
+                }, 60000);  });
 
 $(".btn").click(function(){ 
     survey= $(this).attr("survey");
@@ -40,9 +43,6 @@ $.ajax({
             csrfmiddlewaretoken: csrf_token
         },
 });
-    setInterval(function() {
-                  window.location.reload();
-                }, 60000);  });
-}); 
+  }); 
 
 
