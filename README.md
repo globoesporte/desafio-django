@@ -27,7 +27,7 @@ Para as requisições use o usuario admin e a senha é globoadmin.
 
 ## Endpoints
 Os endpoints são como seguem. 
-* <parametro> é opcional
+* \<parametro\> é opcional
 * {id} é o id da enquete ou opção/voto 
 * O único que não precisa de autenticação é o /vote
 
@@ -39,7 +39,7 @@ Os endpoints são como seguem.
 | /api/surveys/\<survey\=\>{id}    | PUT    | description, active              | Atualiza informações de uma enquete|
 | /api/surveys/\<survey\=\>{id}    | DELETE | N/A              | Deleta uma enquete|
 | /api/vote/\<survey\=\>{id}/\<option\=\>{id}          | POST   | N/A              | Vota em uma única enquete|
-| /api/vote/\<survey\=\>{id}/\<old_option\=\>{id}/new_option\={id}        | PUT   | N/A              | Muda seu voto em uma única enquete|
+| /api/vote/\<survey\=\>{id}/\<old_option\=\>{id}/\<new_option\=\>{id}        | PUT   | N/A              | Muda seu voto em uma única enquete|
 | /api/vote/\<survey\=\>{id}/\<option\=\>{id}          | DELETE   | N/A              | Deleta seu voto em uma única enquete|
 | /api/options      | POST   |  option, survey              | Cria uma nova opção de enquete|
 | /api/options/\<survey\=\>{id}/option\={id}    | PUT    | option              | Atualiza uma opção de enquete|
