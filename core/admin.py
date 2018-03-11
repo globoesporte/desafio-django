@@ -70,6 +70,9 @@ class SurveyAdmin(admin.ModelAdmin):
     inlines = [
         OptionInline,
     ]
+    def options(self, obj):
+        return obj.options.all().count()
+
     def votes(self, obj):
         return obj.options.aggregate(Sum('votes'))['votes__sum']
 
