@@ -27,7 +27,7 @@ Para as requisições use o usuario admin e a senha é globoadmin.
 
 ## Endpoints
 Os endpoints são como seguem. 
-* <parametro> é opcional
+* \<parametro\> é opcional
 * {id} é o id da enquete ou opção/voto 
 * O único que não precisa de autenticação é o /vote
 
