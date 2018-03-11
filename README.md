@@ -47,12 +47,10 @@ Esse projeto utiliza [Basic Access Authetication](https://en.wikipedia.org/wiki/
 
 ## View Django template
 
-O site possui um único template, que mostra todas as enquetes (com uma animação de porcentagem em circulo). Para acessa-lo, é necessário visitar a url /surveys (como em http://ldepaulaf.pythonanywhere.com/surveys/)
+O site possui um único template, que mostra todas as en quetes (com uma animação de porcentagem em circulo).  http://ldepaulaf.pythonanywhere.com/surveys/ ou http://ldepaulaf.pythonanywhere.com/ 
 
 ## Melhorias futuras
 
-*criação de testes
-*melhoria do template
 *verificação e casos para o API e restrições
 *cache de memoria para otimização das ações
 
