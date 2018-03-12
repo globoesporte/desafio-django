@@ -40,7 +40,7 @@ $.ajax({
         },
 });
  setInterval(function() {
-                  window.location.reload();
+                  location.reload();
                 }, 60000);  });
 
 

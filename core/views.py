@@ -47,7 +47,7 @@ class SurveyActs(APIView):
         serializer = SurveySerializer(survey, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
 
@@ -76,7 +76,7 @@ class OptionActs(APIView):
                 'survey': survey}, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
 
