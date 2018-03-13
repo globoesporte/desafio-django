@@ -2,6 +2,18 @@
 
 Esse projeto é uma API em Python 3.6.3 usando Django 2.0.2 e Django Rest Framework 3.7.7 para poder criar, modificar e deletar enquetes. 
 
+# O que foi feito
+
+* Codigo feito em PEP8 e verificado por meio de [autopep8](https://pypi.python.org/pypi/autopep8) 
+* API REST com EndPoints POST, GET, PUT e DELETE
+* Template na home principal para votação e visualização das enquetes com animações e avisos
+* Admin com filtros personalizados e busca  com adição de dados importantes nas paginas. 
+* Docker e arquivo com requerimentos
+* Testes unitarios(totalizando 18) que verificam cada endpoint e a variação de parametros possiveis
+* Fila de Carga de votos na memoria que é descarregada a cada 1 minuto.
+* Deploy em pythonanywhere [aqui](http://ldepaulaf.pythonanywhere.com/)
+
+
 ## Instalando no Docker
 
 Rodando o arquivo em Docker:
@@ -24,26 +36,55 @@ Para ver o site em deploy no python anywhere, acesse http://ldepaulaf.pythonanyw
 
 Para as requisições use o usuario admin e a senha é globoadmin.
 
+## Utilizando task para controle de votos
 
-## Endpoints
-Os endpoints são como seguem. 
-* \<parametro\> é opcional
+O site utiliza o [django-background-task](http://django-background-tasks.readthedocs.io/en/latest/) para criar a fila e contabilizar os votos a cada 1 minuto, para roda-lo no pythonanywhere precisa-se ir na aba de consoles e em um console (rodando o devido virtualenv)o seguinte código:
+```
+ python manage.py process_tasks
+ ```
+
+## Endpoints 
+Os Endpoints foram planejados para aceitar envios com parametros explicitos ou ignorando a chamada do nome dos mesmos
+
+## Endpoints implicito.
+
 * {id} é o id da enquete ou opção/voto 
-* O único que não precisa de autenticação é o /vote
+* O único que não precisa de autenticação é o /vote POST, o PUT e DELETE, decidi manter a segurança, pois são ações de administração e com um futuro login seria possivel o usuario mudar seu voto
 
 | Caminho       | Método | Parametros | Descrição
 | :---          |  :---: |       :---:      | ---: |
 | /api/surveys       | POST   |      description, active       | Cria uma enquete |
 | /api/surveys       | GET    | N/A              | Recupera as informações de todas as enquetes |
-| /api/surveys/\<survey\=\>{id}    | GET    | N/A              | Recupera as informações de uma única enquete|
-| /api/surveys/\<survey\=\>{id}    | PUT    | description, active              | Atualiza informações de uma enquete|
-| /api/surveys/\<survey\=\>{id}    | DELETE | N/A              | Deleta uma enquete|
-| /api/vote/\<survey\=\>{id}/\<option\=\>{id}          | POST   | N/A              | Vota em uma única enquete|
-| /api/vote/\<survey\=\>{id}/\<old_option\=\>{id}/\<new_option\=\>{id}        | PUT   | N/A              | Muda seu voto em uma única enquete|
-| /api/vote/\<survey\=\>{id}/\<option\=\>{id}          | DELETE   | N/A              | Deleta seu voto em uma única enquete|
+| /api/surveys/{id survey}    | GET    | N/A              | Recupera as informações de uma única enquete|
+| /api/surveys/{id survey}   | PUT    | description, active              | Atualiza informações de uma enquete|
+| /api/surveys/{id survey}    | DELETE | N/A              | Deleta uma enquete|
+| /api/vote/{id survey}/{id voto}          | POST   | N/A              | Vota em uma única enquete|
+| /api/vote/{id survey}/{id voto antigo}/{id voto novo}        | PUT   | N/A              | Muda seu voto em uma única enquete|
+| /api/vote/{id survey}/{id voto}        | DELETE   | N/A              | Deleta seu voto em uma única enquete|
 | /api/options      | POST   |  option, survey              | Cria uma nova opção de enquete|
-| /api/options/\<survey\=\>{id}/option\={id}    | PUT    | option              | Atualiza uma opção de enquete|
-| /api/options/\<survey\=\>{id}/option\={id}    | DELETE | N/A              | Deleta uma opção de enquete|
+| /api/options/{id survey}/{id voto}     | PUT    | option              | Atualiza uma opção de enquete|
+| /api/options/{id survey}/{id voto}     | DELETE | N/A              | Deleta uma opção de enquete|
+
+## Endpoints explicito.
+
+* {id} é o id da enquete ou opção/voto 
+* O único que não precisa de autenticação é o /vote POST, o PUT e DELETE, decidi manter a segurança, pois são ações de administração e com um futuro login seria possivel o usuario mudar seu voto
+
+| Caminho       | Método | Parametros | Descrição
+| :---          |  :---: |       :---:      | ---: |
+| /api/surveys       | POST   |      description, active       | Cria uma enquete |
+| /api/surveys       | GET    | N/A              | Recupera as informações de todas as enquetes |
+| /api/surveys/survey={id}    | GET    | N/A              | Recupera as informações de uma única enquete|
+| /api/surveys/survey={id}   | PUT    | description, active              | Atualiza informações de uma enquete|
+| /api/surveys/survey={id}   | DELETE | N/A              | Deleta uma enquete|
+| /api/vote/survey={id}/option={id}          | POST   | N/A              | Vota em uma única enquete|
+| /api/vote/survey={id}/old_option={id}/new_option={id}        | PUT   | N/A              | Muda seu voto em uma única enquete|
+| /api/vote/survey={id}/option={id}          | DELETE   | N/A              | Deleta seu voto em uma única enquete|
+| /api/options      | POST   |  option, survey              | Cria uma nova opção de enquete|
+| /api/options/survey={id}/option={id}    | PUT    | option              | Atualiza uma opção de enquete|
+| /api/options/survey={id}/option={id}    | DELETE | N/A              | Deleta uma opção de enquete|
+
+
 
 ## Autenticação
 Esse projeto utiliza [Basic Access Authetication](https://en.wikipedia.org/wiki/Basic_access_authentication) para fazer a autenticação em todos os endpoints protegidos. Para interagir com esses endpoints, é necessário passar suas credencias no header da chamada. Para facilitar a sua vida, eu recomendo usar o [httpie](https://httpie.org/) (o melhor é feito em python).
@@ -54,10 +95,8 @@ O site possui um único template, que mostra todas as en quetes (com uma animaç
 
 ## Melhorias futuras
 
-*verificação e casos para o API e restrições
-*cache de memoria para otimização das ações
-
+* criação de possibilidade de login por token
 
 ## Considerações finais
 
-Por enquanto está muito anacabado ainda, o first commit foi trabalho de 4 horas de programação, agora com o bruto já feito a lapidação e melhoras devem ser razoavelmente rapidas
+O trabalho levou em torno de 2 dias ( com 5 horas em seguencia) para ter sua base feita, melhorias e bonus foram feitos ao longo de commits diversos, aprendi (e ainda estou aprendendo) bastante com esse desafio, planejo continuar a mante-lo e expandir aideia para projetos futuros
