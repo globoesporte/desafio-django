@@ -172,6 +172,7 @@ http --form GET http://ldepaulaf.pythonanywhere.com/api/surveys/ -a admin:globoa
 ```
 http --form PUT http://ldepaulaf.pythonanywhere.com/api/options/2/11 option='novo Option' -a admin:globoadmin
 ```
+```
 {
     "id": 11,
     "option": "novo Option",
