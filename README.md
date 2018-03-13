@@ -9,8 +9,8 @@ Esse projeto é uma API em Python 3.6.3 usando Django 2.0.2 e Django Rest Framew
 * Template na home principal para votação e visualização das enquetes com animações e avisos
 * Admin com filtros personalizados e busca  com adição de dados importantes nas paginas. 
 * Docker e arquivo com requerimentos
-* Testes unitarios(totalizando 18) que verificam cada endpoint e a variação de parametros possiveis
-* Fila de Carga de votos na memoria que é descarregada a cada 1 minuto.
+* Testes unitários(totalizando 18) que verificam cada endpoint e a variação de parâmetros possíveis
+* Fila de Carga de votos na memória que é descarregada a cada 1 minuto.
 * Deploy em pythonanywhere [aqui](http://ldepaulaf.pythonanywhere.com/)
 
 
@@ -34,7 +34,7 @@ E imediatamente o docker estará funcionando na porta 8000 do localhost
 
 Para ver o site em deploy no python anywhere, acesse http://ldepaulaf.pythonanywhere.com/
 
-Para as requisições use o usuario admin e a senha é globoadmin.
+Para as requisições use o usuário admin e a senha é globoadmin.
 
 ## Utilizando task para controle de votos
 
@@ -44,14 +44,14 @@ O site utiliza o [django-background-task](http://django-background-tasks.readthe
  ```
 
 ## Endpoints 
-Os Endpoints foram planejados para aceitar envios com parametros explicitos ou ignorando a chamada do nome dos mesmos
+Os Endpoints foram planejados para aceitar envios com parâmetros explícitos ou ignorando a chamada do nome dos mesmos
 
-## Endpoints implicito.
+## Endpoints implícito.
 
 * {id} é o id da enquete ou opção/voto 
-* O único que não precisa de autenticação é o /vote POST, o PUT e DELETE, decidi manter a segurança, pois são ações de administração e com um futuro login seria possivel o usuario mudar seu voto
+* O único que não precisa de autenticação é o /vote POST, o PUT e DELETE, decidi manter a segurança, pois são ações de administração e com um futuro login seria possível o usuário mudar seu voto
 
-| Caminho       | Método | Parametros | Descrição
+| Caminho       | Método | Parâmetros | Descrição
 | :---          |  :---: |       :---:      | ---: |
 | /api/surveys       | POST   |      description, active       | Cria uma enquete |
 | /api/surveys       | GET    | N/A              | Recupera as informações de todas as enquetes |
@@ -65,12 +65,12 @@ Os Endpoints foram planejados para aceitar envios com parametros explicitos ou i
 | /api/options/{id survey}/{id voto}     | PUT    | option              | Atualiza uma opção de enquete|
 | /api/options/{id survey}/{id voto}     | DELETE | N/A              | Deleta uma opção de enquete|
 
-## Endpoints explicito.
+## Endpoints explícitos.
 
 * {id} é o id da enquete ou opção/voto 
-* O único que não precisa de autenticação é o /vote POST, o PUT e DELETE, decidi manter a segurança, pois são ações de administração e com um futuro login seria possivel o usuario mudar seu voto
+* O único que não precisa de autenticação é o /vote POST, o PUT e DELETE, decidi manter a segurança, pois são ações de administração e com um futuro login seria possível o usuário mudar seu voto
 
-| Caminho       | Método | Parametros | Descrição
+| Caminho       | Método | Parâmetros | Descrição
 | :---          |  :---: |       :---:      | ---: |
 | /api/surveys       | POST   |      description, active       | Cria uma enquete |
 | /api/surveys       | GET    | N/A              | Recupera as informações de todas as enquetes |
@@ -91,7 +91,7 @@ Esse projeto utiliza [Basic Access Authetication](https://en.wikipedia.org/wiki/
 
 ## View Django template
 
-O site possui um único template, que mostra todas as en quetes (com uma animação de porcentagem em circulo).  http://ldepaulaf.pythonanywhere.com/surveys/ ou http://ldepaulaf.pythonanywhere.com/ 
+O site possui um único template, que mostra todas as enquetes (com uma animação de porcentagem em circulo).  http://ldepaulaf.pythonanywhere.com/surveys/ ou http://ldepaulaf.pythonanywhere.com/ 
 
 ## Melhorias futuras
 
@@ -99,4 +99,4 @@ O site possui um único template, que mostra todas as en quetes (com uma animaç
 
 ## Considerações finais
 
-O trabalho levou em torno de 2 dias ( com 5 horas em sequencia) para ter sua base feita, melhorias e bonus foram feitos ao longo de commits diversos, aprendi (e ainda estou aprendendo) bastante com esse desafio, planejo continuar a mante-lo e expandir aideia para projetos futuros
+O trabalho levou em torno de 2 dias ( com 5 horas em sequencia) para ter sua base feita, melhorias e bonus foram feitos ao longo de commits diversos, aprendi (e ainda estou aprendendo) bastante com esse desafio, planejo continuar a mante-lo e expandir a ideia para projetos futuros.
