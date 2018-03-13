@@ -93,6 +93,92 @@ Esse projeto utiliza [Basic Access Authetication](https://en.wikipedia.org/wiki/
 
 O site possui um único template, que mostra todas as enquetes (com uma animação de porcentagem em circulo).  http://ldepaulaf.pythonanywhere.com/surveys/ ou http://ldepaulaf.pythonanywhere.com/ 
 
+## Exemplos de usos
+os exemplos a seguir usam httpie e o login basico para testes
+
+
+```
+http --form GET http://ldepaulaf.pythonanywhere.com/api/surveys/ -a admin:globoadmin
+```
+```
+
+    {
+        "active": true,
+        "description": "O trabalho está bom?",
+        "id": 1,
+        "options": [
+            {
+                "id": 1,
+                "option": "Esta maravilhoso!",
+                "votes": 11
+            },
+            {
+                "id": 2,
+                "option": "Pode melhorar.",
+                "votes": 6
+            },
+            {
+                "id": 3,
+                "option": "Nem sei como cheguei aqui...",
+                "votes": 2
+            }
+        ]
+    }
+
+```
+
+```
+ http --form PUT http://ldepaulaf.pythonanywhere.com/api/surveys/1 description="Novo titulo" active=False -a admin:globoadmin
+```
+```
+
+{
+    "active": false,
+    "description": "Novo titulo",
+    "id": 1,
+    "options": [
+            {
+                "id": 1,
+                "option": "Esta maravilhoso!",
+                "votes": 11
+            },
+            {
+                "id": 2,
+                "option": "Pode melhorar.",
+                "votes": 6
+            },
+            {
+                "id": 3,
+                "option": "Nem sei como cheguei aqui...",
+                "votes": 2
+            }
+    ]
+}
+
+
+```
+
+```
+ http --form POST http://ldepaulaf.pythonanywhere.com/api/options/ option="Novo Option" survey=2 -a admin:globoadmin
+```
+```
+{
+    "id": 16,
+    "option": "Novo Option",
+    "survey": 2,
+    "votes": 0
+}
+```
+```
+http --form PUT http://ldepaulaf.pythonanywhere.com/api/options/2/11 option='novo Option' -a admin:globoadmin
+```
+{
+    "id": 11,
+    "option": "novo Option",
+    "survey": 2,
+    "votes": 32
+}
+```
 ## Melhorias futuras
 
 * criação de possibilidade de login por token
