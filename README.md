@@ -6,7 +6,7 @@ Crie um fork desse projeto e, quando concluído, faça um pull request do mesmo 
 
 Vamos avaliar a organização do seu código e automações, então vale tomar cuidado.
 
-Não existe um tempo determinado pra executar o teste, mas ele conta e é levado em consideração _Tempo x bônus executados x qualidade do código_.
+Não existe um tempo determinado pra executar o teste, mas ele conta. Levaremos em consideração _Tempo x bônus executados x qualidade do código_.
 
 ---
 
