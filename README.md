@@ -99,4 +99,4 @@ O site possui um único template, que mostra todas as en quetes (com uma animaç
 
 ## Considerações finais
 
-O trabalho levou em torno de 2 dias ( com 5 horas em seguencia) para ter sua base feita, melhorias e bonus foram feitos ao longo de commits diversos, aprendi (e ainda estou aprendendo) bastante com esse desafio, planejo continuar a mante-lo e expandir aideia para projetos futuros
+O trabalho levou em torno de 2 dias ( com 5 horas em sequencia) para ter sua base feita, melhorias e bonus foram feitos ao longo de commits diversos, aprendi (e ainda estou aprendendo) bastante com esse desafio, planejo continuar a mante-lo e expandir aideia para projetos futuros
