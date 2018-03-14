@@ -11,8 +11,9 @@ from django.shortcuts import render
 from .tasks import * 
 from .models import Survey, Options
 from .serializers import SurveySerializer, OptionsSerializer
+from rest_framework import permissions
+from .permissions import IsPostOrIsAuthenticated
 
-votes={}
 
 def SurveyList(request):
     surveys = Survey.objects.filter(active=True).all()
@@ -92,7 +93,8 @@ class OptionActs(APIView):
 
 
 class VoteActs(APIView):
-
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsPostOrIsAuthenticated,)
     def post(self, request, survey, pk):
         try:
             vote(survey,pk,1)
@@ -103,8 +105,6 @@ class VoteActs(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def delete(self, request, survey, pk):
-        authentication_classes = (SessionAuthentication, BasicAuthentication)
-        permission_classes = (IsAuthenticated,)
         try:
             vote(survey,pk,-1)
             return Response(status=status.HTTP_200_OK)
@@ -114,8 +114,6 @@ class VoteActs(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def put(self, request, survey, pkold, pk):
-        authentication_classes = (SessionAuthentication, BasicAuthentication)
-        permission_classes = (IsAuthenticated,)
         try:
             vote(survey,pkold,-1)
             vote(survey,pk,1)
