@@ -21,7 +21,9 @@
  <body>
      <h2>Lista de items</h2>
      {% csrf_token %}
-     
+     <div class="form-group">
+        <a class="glyphicon glyphicon-arrow-left" href="/enquete/all">Retornar</a> 
+    </div>
      <div class="form-control bd.example col-sm-8" ng-app="enqueteApp" ng-controller="itemEditController" ng-init="obterTodos({{id_enquete}});">
         <div class="form-control">
             <a class="glyphicon glyphicon-new-window" href="/item/new/?enquete={{id_enquete}}" >Criar novo item</a>
@@ -42,7 +44,7 @@
               <tr ng-repeat="e in items">
                 <th class="row">
                     <a class="glyphicon glyphicon-remove" ng-click="excluir(this);" id="{$ e.id $}" ></a>
-                    <a class="glyphicon glyphicon-edit"  href="/item/edit/{$ e.id $}"></a>
+                    <a class="glyphicon glyphicon-edit"  href="/item/edit/{$ e.id $}?enquete={{id_enquete}}"></a>
                 </th>
                 <td>{$ e.nome $}</td>
                 <td>{$ e.descricao $}</td>

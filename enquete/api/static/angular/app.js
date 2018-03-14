@@ -24,7 +24,7 @@ enqueteApp
                         $scope.enquete.nome = response.data.nome;
                         $scope.enquete.descricao = response.data.descricao;
                         $scope.enquete.data_criacao = new Date(response.data.data_criacao);
-                        
+                        $scope.enquete.itens = response.data.itens;
                     }, 
                     function(response){
                         alert('Houve um erro ao carregar');
@@ -34,6 +34,7 @@ enqueteApp
 
         $scope.editar = function() 
         {
+            console.log($scope.enquete);
             $http.put(urlService.obterUrl(urlService.Urls.EDITAR, $scope.enquete.id), $scope.enquete)
                  .then(function(response)
                  {
@@ -47,6 +48,7 @@ enqueteApp
 
         $scope.incluir = function() 
         {
+            $scope.enquete.itens = [];
             $http.post(urlService.obterUrl(urlService.Urls.INCLUIR), $scope.enquete)
                  .then(function(response)
                  {

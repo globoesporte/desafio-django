@@ -37,7 +37,7 @@ urlpatterns = [
     # item
     url(r'^item/$', views.ItemList.as_view(), name='item-list'),
     url(r'^item/(?P<pk>[0-9]+)/$', views.ItemDetail.as_view(), name='item-detail'),
-    url(r'^item/edit/(?P<pk>[0-9]+)/$', views.ItemEditView.as_view(), name=' item-edit'),
+    url(r'^item/edit/(?P<pk>[0-9]+)/$', views.ItemEditView.as_view(), name='item-edit'),
     url(r'^item/all/', views.ItemListView.as_view(), name='item-all'),
     url(r'^item/new/', views.ItemNewView.as_view(), name='item-new'),
     

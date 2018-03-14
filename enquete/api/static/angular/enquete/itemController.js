@@ -4,7 +4,7 @@ enqueteApp
         $scope.url = urlApi();
         
         $scope.init = function(value) {
-            
+            console.log(value);
             $http.get(urlService.obterUrl(urlService.Urls.OBTER, value))
                 .then(
                     function(response){
@@ -13,6 +13,10 @@ enqueteApp
                         $scope.item.descricao = response.data.descricao;
                         $scope.item.data_criacao = new Date(response.data.data_criacao);
                         $scope.item.valor = response.data.valor;
+                        $scope.item.id = response.data.id;
+                        $scope.item.enquete = response.data.enquete;
+
+                        console.log(response.data);
                     }, 
                     function(response){
                         alert('Houve um erro ao carregar');
@@ -22,10 +26,11 @@ enqueteApp
 
         $scope.editar = function()
         {
+            console.log(urlService.obterUrl(urlService.Urls.EDITAR, $scope.item.id))
            $http.put(urlService.obterUrl(urlService.Urls.EDITAR, $scope.item.id), $scope.item)
                  .then(function(response)
                  {
-                    urlService.redirecionar(urlService.Urls.ALL);
+                    urlService.redirecionar(urlService.Urls.ALL, $scope.item.enquete);
 
                  }, function(response){
                     alert('Houve um erro ao editar');
@@ -116,7 +121,7 @@ function urlService(urlApi)
 
         // API
         LISTAR :  "item/?enquete={0}&format=json",
-        OBTER :   "item/?format=json",
+        OBTER :   "item/{0}/?format=json",
         EDITAR :  "item/{0}/",
         INCLUIR : "item/",
         EXCLUIR : "item/{0}/"

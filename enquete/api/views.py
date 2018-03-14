@@ -112,7 +112,8 @@ class ItemEditView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
     def get(self, request, pk, *args, **kwargs):
-        return Response({'id_enquete' : id_enquete}, template_name = 'item_edit.html')
+        id_enquete = self.request.query_params.get('enquete', None)
+        return Response({'id_enquete' : id_enquete, 'pk' : pk}, template_name = 'item_edit.html')
 
 class ItemListView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
