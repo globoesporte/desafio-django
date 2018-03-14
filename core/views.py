@@ -103,6 +103,8 @@ class VoteActs(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def delete(self, request, survey, pk):
+        authentication_classes = (SessionAuthentication, BasicAuthentication)
+        permission_classes = (IsAuthenticated,)
         try:
             vote(survey,pk,-1)
             return Response(status=status.HTTP_200_OK)
@@ -112,6 +114,8 @@ class VoteActs(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def put(self, request, survey, pkold, pk):
+        authentication_classes = (SessionAuthentication, BasicAuthentication)
+        permission_classes = (IsAuthenticated,)
         try:
             vote(survey,pkold,-1)
             vote(survey,pk,1)
