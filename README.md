@@ -7,7 +7,7 @@ Esse projeto é uma API em Python 3.6.3 usando Django 2.0.2 e Django Rest Framew
 * Codigo feito em PEP8 e verificado por meio de [autopep8](https://pypi.python.org/pypi/autopep8) 
 * API REST com EndPoints POST, GET, PUT e DELETE
 * Template na home principal para votação e visualização das enquetes com animações e avisos
-* Admin com filtros personalizados e busca  com adição de dados importantes nas paginas. 
+* Admin com filtros personalizados e busca  com adição de dados importantes nas páginas. 
 * Docker e arquivo com requerimentos
 * Testes unitários(totalizando 18) que verificam cada endpoint e a variação de parâmetros possíveis
 * Fila de Carga de votos na memória que é descarregada a cada 1 minuto.
@@ -19,7 +19,7 @@ Esse projeto é uma API em Python 3.6.3 usando Django 2.0.2 e Django Rest Framew
 Rodando o arquivo em Docker:
 É muito simples. Primeiramente instale o [Compose](https://docs.docker.com/compose/install/#install-compose) para facilitar ao processo. 
 
-com o composer instalado, basta ir na pasta do projeto e usar os seguintes comandos na mesma pasta onde há o arquivo manage.py
+Com o composer instalado, basta ir na pasta do projeto e usar os seguintes comandos na mesma pasta onde há o arquivo manage.py
 ```
 docker-compose run web manage.py migrate
 
@@ -38,7 +38,7 @@ Para as requisições use o usuário admin e a senha é globoadmin.
 
 ## Utilizando task para controle de votos
 
-O site utiliza o [django-background-task](http://django-background-tasks.readthedocs.io/en/latest/) para criar a fila e contabilizar os votos a cada 1 minuto, para roda-lo no pythonanywhere precisa-se ir na aba de consoles e em um console (rodando o devido virtualenv)o seguinte código:
+O site utiliza o [django-background-task](http://django-background-tasks.readthedocs.io/en/latest/), para criar a fila e contabilizar os votos a cada 1 minuto, para roda-lo no pythonanywhere é preciso ir na aba de consoles e em um console (rodando o devido virtualenv)o seguinte código:
 ```
  python manage.py process_tasks
  ```
