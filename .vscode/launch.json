@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "/home/alexandre/Documentos/develop/desafio_django_globo_com/desafio-django/env/bin/python3.6", //"${config:python.pythonPath}",
+            "pythonPath":  "C:/Program Files (x86)/Microsoft Visual Studio/Shared/Anaconda3_64/python.exe", //"${config:python.pythonPath}",
             "program": "${file}",
             "cwd": "${workspaceFolder}",
             "env": {},
@@ -59,7 +59,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "/home/alexandre/Documentos/develop/desafio_django_globo_com/desafio-django/env/bin/python3.6",
+            "pythonPath": "C:/Program Files (x86)/Microsoft Visual Studio/Shared/Anaconda3_64/python.exe",
             "program": "${workspaceFolder}/enquete/manage.py",
             "cwd": "${workspaceFolder}",
             "args": [
@@ -68,7 +68,7 @@
                 "--nothreading"
             ],
             "env": {},
-            "envFile": "${workspaceFolder}/.env",
+            "envFile": "${workspaceFolder}/env",
             "debugOptions": [
                 "RedirectOutput",
                 "DjangoDebugging"
