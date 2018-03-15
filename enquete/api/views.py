@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User, Group
 from api.models import Enquete, Item, Voto
 from rest_framework import viewsets, mixins, generics, status
-from api.serializer import UserSerializer, GroupSerializer, EnqueteSerializer, ItemSerializer
+from api.serializer import UserSerializer, GroupSerializer, EnqueteSerializer, ItemSerializer, VotoSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -129,4 +129,19 @@ class ItemNewView(generics.RetrieveAPIView):
         id_enquete = self.request.query_params.get('enquete', None)
         return Response({'id_enquete' : id_enquete}, template_name = 'item_new.html')
     
+class VotacaoView(generics.RetrieveAPIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    
+    def get(self, request, *args, **kwargs):
+        id_enquete = self.request.query_params.get('enquete', None)
+        return Response({'id_enquete' : id_enquete}, template_name = 'votacao.html')
 
+class VotarView(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+ 
+    serializer_class = VotoSerializer
+ 
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+    

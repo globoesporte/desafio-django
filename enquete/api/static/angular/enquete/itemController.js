@@ -4,7 +4,7 @@ enqueteApp
         $scope.url = urlApi();
         
         $scope.init = function(value) {
-            console.log(value);
+            
             $http.get(urlService.obterUrl(urlService.Urls.OBTER, value))
                 .then(
                     function(response){

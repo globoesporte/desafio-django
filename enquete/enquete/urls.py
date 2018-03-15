@@ -40,6 +40,9 @@ urlpatterns = [
     url(r'^item/edit/(?P<pk>[0-9]+)/$', views.ItemEditView.as_view(), name='item-edit'),
     url(r'^item/all/', views.ItemListView.as_view(), name='item-all'),
     url(r'^item/new/', views.ItemNewView.as_view(), name='item-new'),
+
+    url(r'^votacao/', views.VotacaoView.as_view(), name='votacao'),
+    url(r'^api/voto/', views.VotarView.as_view(), name='voto'),
     
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
@@ -47,4 +50,3 @@ urlpatterns = [
 ]
 
  
-# urlpatterns = format_suffix_patterns(urlpatterns)
