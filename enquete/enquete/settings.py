@@ -122,4 +122,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+DJANGO_SETTINGS_MODULE = 'django.conf.global_settings'

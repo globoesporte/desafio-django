@@ -4,7 +4,6 @@ from rest_framework import serializers
 from rest_framework_json_api.relations import ResourceRelatedField
 import sys
 import logging
-from api.worker import VotoWorker
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -37,15 +36,9 @@ class EnqueteSerializer(serializers.ModelSerializer):
         fields = ('id', 'uuid', 'nome', 'descricao', 'data_criacao', 'itens')
 
 class VotoSerializer(serializers.ModelSerializer):
-    # item = ItemSerializer()
     class Meta:
         model = Voto
         fields = ('id', 'uuid', 'data_criacao', 'item')
 
-    def create(self, validated_data):
-        itemObj = validated_data
-        item = Voto.objects.create(**itemObj)
-        worker = VotoWorker()
-        worker.adicionar_voto(item)
-
-        return item
+    # def create(self, validated_data):
+    #     return Voto.objects.create(**validated_data)

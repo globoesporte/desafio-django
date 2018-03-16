@@ -9,6 +9,8 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.decorators import api_view, renderer_classes
 import logging
+from api.worker import VotoWorker
+from django.http import HttpResponse
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -143,5 +145,15 @@ class VotarView(mixins.ListModelMixin,
     serializer_class = VotoSerializer
  
     def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+        logger = logging.getLogger(__name__)
+        serializer = VotoSerializer(data=request.data)
+
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
+            worker = VotoWorker()
+            worker.adicionar_voto(validated_data)
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=400)
+        
     

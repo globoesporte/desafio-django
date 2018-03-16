@@ -58,8 +58,8 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "stopOnEntry": true,
-            "pythonPath": "C:/Program Files (x86)/Microsoft Visual Studio/Shared/Anaconda3_64/python.exe",
+            "stopOnEntry": false,
+            "pythonPath": "${workspaceFolder}/env/Scripts/python.exe",
             "program": "${workspaceFolder}/enquete/manage.py",
             "cwd": "${workspaceFolder}",
             "args": [
