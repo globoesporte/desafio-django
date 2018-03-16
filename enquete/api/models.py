@@ -30,6 +30,5 @@ class Item(models.Model):
 class Voto(models.Model):
     id =  models.AutoField(primary_key=True)
     uuid =  models.UUIDField(default=uuid.uuid4, editable=False, blank=False, null=False)
-    enquete = models.ForeignKey(Enquete, on_delete=models.CASCADE, null=False)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, null=False)
     data_criacao = models.DateTimeField(default=now, editable=False, blank=False, null=False)

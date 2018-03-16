@@ -1,22 +1,22 @@
 enqueteApp
     .controller('votoController', ['$scope', '$http', 'urlApi','urlService', function ($scope, $http, urlApi, urlService) {
-        $scope.item = {};
+        $scope.enquete = {};
+        $scope.itemSelecionado = undefined;
         $scope.url = urlApi();
-        
+
         $scope.init = function(value) {
             
             $http.get(urlService.obterUrl(urlService.Urls.OBTER, value))
                 .then(
                     function(response){
 
-                        $scope.item.nome = response.data.nome;
-                        $scope.item.descricao = response.data.descricao;
-                        $scope.item.data_criacao = new Date(response.data.data_criacao);
-                        $scope.item.valor = response.data.valor;
-                        $scope.item.id = response.data.id;
-                        $scope.item.enquete = response.data.enquete;
-
-                        console.log(response.data);
+                        $scope.enquete.nome = response.data.nome;
+                        $scope.enquete.descricao = response.data.descricao;
+                        $scope.enquete.data_criacao = new Date(response.data.data_criacao);
+                        $scope.enquete.valor = response.data.valor;
+                        $scope.enquete.id = response.data.id;
+                        $scope.enquete.enquete = response.data.enquete;
+                        $scope.enquete.itens = response.data.itens;
                     }, 
                     function(response){
                         alert('Houve um erro ao carregar');
@@ -24,17 +24,30 @@ enqueteApp
 
         }
 
-        $scope.incluir = function(enquete) 
+        $scope.votar = function(enquete) 
         {
-            $scope.item.enquete = enquete;
-            $http.post(urlService.obterUrl(urlService.Urls.INCLUIR), $scope.item)
+            if ($scope.itemSelecionado == undefined)
+                {
+                    alert('Selecione um item');
+                    return false;
+                }
+
+            $scope.voto = {};
+
+            $scope.voto.item =  $scope.itemSelecionado.id;
+
+            $http.post(urlService.obterUrl(urlService.Urls.VOTAR), $scope.voto)
                  .then(function(response)
                  {
-                    urlService.redirecionar(urlService.Urls.ALL, enquete);
+                    //urlService.redirecionar(urlService.Urls.ALL, enquete);
                  }, function(response)
                  {
                     alert('Houve um erro ao editar');
                  });
+        }
+
+        $scope.selectItem = function(item) {
+            $scope.itemSelecionado = item;
         }
 
     }]);
@@ -50,8 +63,8 @@ function urlService(urlApi)
 
     serv.Urls = {
         // API
-        LISTAR :  "item/?enquete={0}&format=json",
-        VOTAR : "voto/"
+        OBTER :  "enquete/{0}",
+        VOTAR : "api/voto/"
     }
 
     function redirecionar(url, value)
