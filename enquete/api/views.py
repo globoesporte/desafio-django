@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User, Group
 from api.models import Enquete, Item, Voto
-from rest_framework import viewsets, mixins, generics, status
+from rest_framework import viewsets, mixins, generics, status, permissions
 from api.serializer import UserSerializer, GroupSerializer, EnqueteSerializer, ItemSerializer, VotoSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
@@ -34,6 +34,7 @@ class EnqueteDetail(mixins.RetrieveModelMixin,
                     generics.GenericAPIView):
     queryset = Enquete.objects.all()
     serializer_class = EnqueteSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
  
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
