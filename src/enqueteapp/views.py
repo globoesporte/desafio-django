@@ -3,6 +3,9 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .models import Question, Choice
 
 class IndexView(generic.ListView):
@@ -30,3 +33,4 @@ def vote(request, question_id):
     selected_choice.votes += 1
     selected_choice.save()
     return HttpResponseRedirect(reverse('enqueteapp:results', args=(question.id,)))
+
