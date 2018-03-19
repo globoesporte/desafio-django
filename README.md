@@ -51,6 +51,7 @@ Rodando em ambiente docker e deploy em Heroku ou PythonAnywhere
 - Listagem para votação, só se pode votar através da listagem de enquetes
 - Não foram desenvolvidos testes unitários
 - A criação de uma imagem de container do docker não feita. Foi feita uma tentativa de deploy no Heroku, sem container através de push do GitHub e Heroku CLI, mas há algum erro na montagem da estrutura do projeto.
+- Admin com campo para busca e filtros
 
 #Instruções de uso
 - À partir da url "enquete/all" pode-se criar, alterar, excluir uma enquete, seus itens e efetuar uma votação.
