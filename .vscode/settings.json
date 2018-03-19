@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "${workspaceFolder}/env/bin/python",
+    "git.ignoreLimitWarning": true,
+    "python.linting.pylintEnabled": false
+}

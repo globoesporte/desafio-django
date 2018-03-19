@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>{% block page_title %}{% endblock page_title %}</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+            #cnt1 {
+                /* background-color: rgba(215, 212, 212, 0.88); */
+                margin-bottom: 70px;
+            }
+            
+            #panel1 {
+                padding:20px;
+            }
+            
+            .panel-body:not(.two-col) {
+                padding: 0px;
+            }
+            
+            .panel-body .radio, .panel-body .radio {
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+            
+            .panel-body .list-group {
+                margin-bottom: 0;
+            }
+            
+            .margin-bottom-none {
+                margin-bottom: 0;
+            }
+            </style>
+  </head>
+  
+  <body>
+  {% block document_body %}
+    <div class="container" id="cnt1">
+            <nav class="navbar navbar-inverse bg-inverse">
+                    <div class="container">
+                      <a class="navbar-brand"  href="/enquete/all">Enquete</a>
+                      <a class="navbar-brand"  href="/admin">Admin</a>
+                    </div>
+            </nav>
+        {% block document_container %}{% endblock document_container %}</div>
+    
+    <footer id=document-footer>{% block document_footer %}{% endblock document_footer %}</footer>
+  {% endblock document_body %}
+  </body>
+</html>

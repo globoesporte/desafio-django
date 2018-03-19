@@ -1,0 +1,58 @@
+{% extends "base_site.html" %}
+
+{% block document_container %}
+      <style>
+              .bd-example {
+                  position: relative;
+                  padding: 1rem;
+                  margin: 1rem -15px 0;
+                      margin-right: -15px;
+                      margin-left: 20px;
+                  border: solid #f7f7f9;
+                      border-top-width: medium;
+                      border-right-width: medium;
+                      border-bottom-width: medium;
+                      border-left-width: medium;
+                  border-width: .2rem 0 0;
+              }
+      </style>
+
+     <h2>Lista de Enquetes</h2>
+     {% csrf_token %}
+     <div class="form-control bd.example col-sm-8" ng-app="enqueteApp" ng-controller="enqueteEditController" ng-init="obterTodos();">
+        <div class="form-control">
+            <a class="glyphicon glyphicon-new-window" href="/enquete/new" >Criar nova enquete</a>
+        </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th class="col">#</th>
+                <th class="col">Nome</th>
+                <th class="col">Descrição</th>
+                <th class="col">Data</th>
+                <th class="col">Total de Itens</th>
+                <th class="col">Itens</th>
+              </tr>
+            </thead>
+            <tbody >
+                
+              <tr ng-repeat="e in enquetes">
+                <th class="row">
+                    <a class="glyphicon glyphicon-remove" ng-click="excluir(this);" id="{$ e.id $}" ></a>
+                    <a class="glyphicon glyphicon-edit" placeholder="Entre com nome" href="/enquete/edit/{$ e.id $}"></a>
+                    <a class="glyphicon glyphicon-ok" placeholder="Votar" href="/votacao/?enquete={$ e.id $}"></a>
+                    
+                </th>
+                <td>{$ e.nome $}</td>
+                <td>{$ e.descricao $}</td>
+                <td>{$ e.data_criacao $}</td>
+                <td>{$ e.itens.length $}</td>
+                <td><a class="glyphicon glyphicon-list-alt" href="/item/all/?enquete={$ e.id $}">Listar Itens</a></td> 
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    </div> 
+    <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
+{% endblock document_container %}
+

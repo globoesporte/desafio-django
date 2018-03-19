@@ -1,0 +1,30 @@
+{% load rest_framework %}
+
+<html>
+        <head>
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+                
+            </head>
+
+<body>
+
+<h1>Profile - {{ profile.name }}</h1>
+
+<div class="form-group col-sm-4" ng-app="enqueteApp" ng-controller="enqueteEditController" ng-init="init();">
+    <form class="form-horizontal" action="{% url 'enquete-detail' pk=profile.id %}" method="put">
+        {% csrf_token %}
+        {% render_form serializer template_pack='rest_framework/vertical' %}
+        <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-default" onclick="editar">Editar</button>
+                </div>
+            </div>
+    </form>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
+<script src="{{ STATIC_URL }}/static/angular/app.js"></script>
+</html>
+

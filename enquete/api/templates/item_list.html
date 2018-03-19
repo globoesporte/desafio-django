@@ -1,0 +1,59 @@
+{% extends "base_site.html" %}
+
+{% block document_container %}
+      <style>
+              .bd-example {
+                  position: relative;
+                  padding: 1rem;
+                  margin: 1rem -15px 0;
+                      margin-right: -15px;
+                      margin-left: 20px;
+                  border: solid #f7f7f9;
+                      border-top-width: medium;
+                      border-right-width: medium;
+                      border-bottom-width: medium;
+                      border-left-width: medium;
+                  border-width: .2rem 0 0;
+              }
+      </style>
+     <h2>Lista de items</h2>
+     {% csrf_token %}
+     <div class="form-group">
+        <a class="glyphicon glyphicon-arrow-left" href="/enquete/all">Retornar</a> 
+    </div>
+     <div class="form-control bd.example col-sm-8" ng-app="enqueteApp" ng-controller="itemEditController" ng-init="obterTodos({{id_enquete}});">
+        <div class="form-control">
+            <a class="glyphicon glyphicon-new-window" href="/item/new/?enquete={{id_enquete}}" >Criar novo item</a>
+        </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th class="col">#</th>
+                <th class="col">Nome</th>
+                <th class="col">Descrição</th>
+                <th class="col">Data</th>
+                <th class="col">Valor</th>
+                <th class="col"></th>
+              </tr>
+            </thead>
+            <tbody >
+                
+              <tr ng-repeat="e in items">
+                <th class="row">
+                    <a class="glyphicon glyphicon-remove" ng-click="excluir(this);" id="{$ e.id $}" idEnquete="{{id_enquete}}" ></a>
+                    <a class="glyphicon glyphicon-edit"  href="/item/edit/{$ e.id $}?enquete={{id_enquete}}"></a>
+                </th>
+                <td>{$ e.nome $}</td>
+                <td>{$ e.descricao $}</td>
+                <td>{$ e.data_criacao $}</td>
+                <td>{$ e.valor $}</td>
+                <td></td> 
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    </div> 
+    <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
+    <script src="{{ STATIC_URL }}/static/angular/enquete/itemController.js"></script>
+    {% endblock document_container %}
+

@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<div class="container" id="cnt1" ng-app="enqueteApp" ng-controller="votoController" ng-init="init({{id_enquete}});">
+    <div class="col-md-3">
+            <h3 class="panel-title">
+                    
+    </div>
+    <div class="col-md-6" id="panel1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-question-circle"></span>{$ enquete.nome $}</h3>
+            </div>
+            <div class="panel-body two-col">
+                <div class="row">
+                    <div class="col-md-6" ng-repeat="i in enquete.itens">
+                        <div class="well well-sm">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" ng-bind="i" name="survey" ng-click="selectItem(i);">
+                                    <span >{$ i.nome $}</span>
+                                </label>
+                                <div>
+                                    <small id="valorHelp" class="form-text text-muted"> {$ i.descricao $}</small>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-success btn-sm btn-block" ng-click="votar();">
+                            <span class="fa fa-send"></span>Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
+    <script src="{{ STATIC_URL }}/static/angular/enquete/votoController.js"></script>
+<style>
+#cnt1 {
+    /* background-color: rgba(215, 212, 212, 0.88); */
+    margin-bottom: 70px;
+}
+
+#panel1 {
+    padding:20px;
+}
+
+.panel-body:not(.two-col) {
+    padding: 0px;
+}
+
+.panel-body .radio, .panel-body .radio {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.panel-body .list-group {
+    margin-bottom: 0;
+}
+
+.margin-bottom-none {
+    margin-bottom: 0;
+}
+</style>
