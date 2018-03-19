@@ -8,7 +8,7 @@ from rest_framework.generics import RetrieveAPIView, ListAPIView
 
 from enqueteapp.permissions import IsOwnerOrReadOnly
 from enqueteapp.models import Question, Choice
-from .serializers import QuestionSerializer, UserSerializer
+from .serializers import QuestionSerializer, UserSerializer, ChoiceSerializer
 
 class AllQuestionsView(APIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
@@ -57,3 +57,17 @@ class UserList(ListAPIView):
 class UserDetail(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class VoteView(APIView):
+
+    def get_object(self, pk):
+        return Question.objects.get(pk=pk)
+
+    def get(self, request, pk, format=None):
+        choice = self.get_object(pk=pk)
+        serializer = ChoiceSerializer(choice)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        choice = self.get_object(pk=pk)
+        choice.add_vote()

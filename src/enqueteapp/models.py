@@ -15,3 +15,7 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+    def add_vote(self):
+        self.votes += 1
+        self.save()
