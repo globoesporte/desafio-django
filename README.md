@@ -10,7 +10,7 @@ Não existe um tempo determinado pra executar o teste mas ele conta e é levado 
 
 ---
 
-## Importamte
+## Importante
 
 - Seguir a convenção PEP8
 - Python 3.6
@@ -35,4 +35,21 @@ Testes unitários também são bem-vindos
 
 Rodando em ambiente docker e deploy em Heroku ou PythonAnywhere
 
+
+## Instruções
+Itens prontos:
+    * As Apis para e páginas para serem criação de enquetes e suas páginas
+    * A segurança só foi colocada nas rotas das views
+    * A api foi escrita com DRF e Angular 1
+
+Bônus prontos:
+    * Para salvar as fotos a cada minuto, foi criada a classe VotoWorker no arquivo worker.py
+
+Itens não entregues
+    * Listagem para votação, só se pode votar através da listagem de enquetes
+    * Não foram desenvolvidos testes unitários
+    * A criação de uma imagem de container do docker não feita. Foi feita uma tentativa de deploy no Heroku, sem container através de push do GitHub e Heroku CLI, mas há algum erro na montagem da estrutura do projeto.
+
+Instruções de uso
+    * À partir da url "enquete/all" pode-se criar, alterar, excluir uma enquete, seus itens e efetuar uma votação.
 
