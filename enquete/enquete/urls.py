@@ -28,25 +28,30 @@ router.register(r'groups', views.GroupViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     # enquete
-    url(r'^enquete/$', views.EnqueteList.as_view(), name='enquete-list'),
-    url(r'^enquete/(?P<pk>[0-9]+)/$', views.EnqueteDetail.as_view(), name='enquete-detail'),
+    url(r'^api/enquete/$', views.EnqueteList.as_view(), name='enquete-list'),
+    url(r'^api/enquete/(?P<pk>[0-9]+)/$', views.EnqueteDetail.as_view(), name='enquete-detail'),
+    
     url(r'^enquete/edit/(?P<pk>[0-9]+)/$', views.EnqueteEditView.as_view(), name='enquete-edit'),
     url(r'^enquete/all/', views.EnqueteListView.as_view(), name='enquete-all'),
     url(r'^enquete/new/', views.EnqueteNewView.as_view(), name='enquete-new'),
     
     # item
-    url(r'^item/$', views.ItemList.as_view(), name='item-list'),
-    url(r'^item/(?P<pk>[0-9]+)/$', views.ItemDetail.as_view(), name='item-detail'),
+    url(r'^api/item/$', views.ItemList.as_view(), name='item-list'),
+    url(r'^api/item/(?P<pk>[0-9]+)/$', views.ItemDetail.as_view(), name='item-detail'),
+    
     url(r'^item/edit/(?P<pk>[0-9]+)/$', views.ItemEditView.as_view(), name='item-edit'),
     url(r'^item/all/', views.ItemListView.as_view(), name='item-all'),
     url(r'^item/new/', views.ItemNewView.as_view(), name='item-new'),
 
+    # voto
     url(r'^votacao/', views.VotacaoView.as_view(), name='votacao'),
     url(r'^api/voto/', views.VotarView.as_view(), name='voto'),
     
+    # outros
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
 ]
+
 
  

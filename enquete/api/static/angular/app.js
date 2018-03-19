@@ -140,11 +140,11 @@ function urlService(urlApi)
         EDIT :    "enquete/edit/{0}",
 
         // API
-        LISTAR :  "enquete/?format=json",
-        OBTER :   "enquete/{0}",
-        EDITAR :  "enquete/{0}/",
-        INCLUIR : "enquete/",
-        EXCLUIR : "enquete/{0}/"
+        LISTAR :  "api/enquete/?format=json",
+        OBTER :   "api/enquete/{0}",
+        EDITAR :  "api/enquete/{0}/",
+        INCLUIR : "api/enquete/",
+        EXCLUIR : "api/enquete/{0}/"
     }
 
     function redirecionar(url, value)

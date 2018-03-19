@@ -1,3 +1,6 @@
+{% extends "base_site.html" %}
+
+{% block document_container %}
 <div class="form-group">
     <a class="glyphicon glyphicon-arrow-left" href="/enquete/all">Retornar</a> 
 </div>
@@ -39,4 +42,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
     <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
+    {% endblock document_container %}
 

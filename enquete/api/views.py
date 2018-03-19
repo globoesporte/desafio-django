@@ -11,7 +11,33 @@ from rest_framework.decorators import api_view, renderer_classes
 import logging
 from api.worker import VotoWorker
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.urls import reverse
+from django.views.generic import RedirectView
 
+def UserLogin(request):
+    next_page = request.GET['next']
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(next_page)
+    else:
+        if request.method == 'POST':
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = authenticate(email=username, password=password)
+                if user is not None and user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect(next_page)
+                else:
+                    error_msg = 'There was an error!'
+                    return render(request, "login", {'form': form, 'error_msg': error_msg})
+            else:
+                error_msg = "There was an error!"
+                return render(request, "login", {'form':form, 'error_msg':error_msg})
+        else:
+            form = UserLoginForm()
+            return render(request, "login", {'form': form})
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -27,6 +53,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
 
 class EnqueteDetail(mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
@@ -45,6 +72,7 @@ class EnqueteDetail(mixins.RetrieveModelMixin,
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
+
 class EnqueteList(mixins.ListModelMixin,
                   mixins.CreateModelMixin,
                   generics.GenericAPIView):
@@ -57,18 +85,21 @@ class EnqueteList(mixins.ListModelMixin,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+@method_decorator(login_required(login_url='/admin/login/?next=/enquete/all'), name='dispatch')
 class EnqueteEditView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
     def get(self, request, pk, *args, **kwargs):
         return Response({'pk' : pk}, template_name = 'enquete_edit.html')
 
+@method_decorator(login_required(login_url='/admin/login/?next=/enquete/all'), name='dispatch')
 class EnqueteListView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
     def get(self, request, *args, **kwargs):
         return Response(template_name = 'enquete_list.html')
 
+@method_decorator(login_required(login_url='/admin/login/?next=/enquete/all'), name='dispatch')
 class EnqueteNewView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
@@ -111,6 +142,7 @@ class ItemList(mixins.ListModelMixin,
             queryset = queryset.filter(enquete_id=enquete)
         return queryset    
 
+@method_decorator(login_required(login_url='/admin/login/?next=/enquete/all'), name='dispatch')
 class ItemEditView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
@@ -118,6 +150,7 @@ class ItemEditView(generics.RetrieveAPIView):
         id_enquete = self.request.query_params.get('enquete', None)
         return Response({'id_enquete' : id_enquete, 'pk' : pk}, template_name = 'item_edit.html')
 
+@method_decorator(login_required(login_url='/admin/login/?next=/enquete/all'), name='dispatch')
 class ItemListView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
@@ -125,6 +158,7 @@ class ItemListView(generics.RetrieveAPIView):
         id_enquete = self.request.query_params.get('enquete', None)
         return Response({'id_enquete' : id_enquete}, template_name = 'item_list.html')
 
+@method_decorator(login_required(login_url='/admin/login/?next=/enquete/all'), name='dispatch')
 class ItemNewView(generics.RetrieveAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     
@@ -157,4 +191,9 @@ class VotarView(mixins.ListModelMixin,
         else:
             return HttpResponse(status=400)
         
-    
+
+
+class RedirectToHome(RedirectView):
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('/enquete/all')

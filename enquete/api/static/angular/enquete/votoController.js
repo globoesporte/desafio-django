@@ -63,7 +63,7 @@ function urlService(urlApi)
 
     serv.Urls = {
         // API
-        OBTER :  "enquete/{0}",
+        OBTER :  "api/enquete/{0}",
         VOTAR : "api/voto/"
     }
 

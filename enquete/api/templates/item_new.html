@@ -1,8 +1,11 @@
+{% extends "base_site.html" %}
+
+{% block document_container %}
 <div class="form-group">
         <a class="glyphicon glyphicon-arrow-left" href="/item/all/?enquete={{id_enquete}}">Retornar</a> 
     </div>
 <div class="form-group">
-    <div class="bd-example col-sm-6" ng-app="enqueteApp" ng-controller="itemEditController" ng-init="init();">
+    <div class="bd-example col-sm-6" ng-app="enqueteApp" ng-controller="itemEditController">
         <form class="form-horizontal" action="{% url 'item-new'  %}" method="post">
                     {% csrf_token %}
         <div class="form-group">
@@ -40,7 +43,6 @@
             border-width: .2rem 0 0;
         }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
 <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
 <script src="{{ STATIC_URL }}/static/angular/enquete/itemController.js"></script>
+{% endblock document_container %}

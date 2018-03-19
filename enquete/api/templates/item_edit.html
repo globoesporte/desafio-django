@@ -1,3 +1,6 @@
+{% extends "base_site.html" %}
+
+{% block document_container %}
 <div class="form-group">
     <a class="glyphicon glyphicon-arrow-left" href="/enquete/all">Retornar</a> 
 </div>
@@ -16,6 +19,11 @@
                 <input type="text" class="form-control" id="descricaoInput" placeholder="Entre com a descrição" ng-model="item.descricao">
                 <small id="descricaoHelp" class="form-text text-muted">Descrição da enquete</small>
             </div>
+            <div class="form-group">
+                    <label for="valorInput">Valor</label>
+                    <input type="text" class="form-control" id="valorInput" placeholder="Entre com o valor" ng-model="item.valor">
+                    <small id="valorHelp" class="form-text text-muted">Valor do item</small>
+                </div>
              <button type="button" class="btn btn-default" ng-click="editar();">Alterar</button>  
             </form>
         </div>
@@ -36,8 +44,7 @@
                 border-width: .2rem 0 0;
             }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
     <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
     <script src="{{ STATIC_URL }}/static/angular/enquete/itemController.js"></script>
+    {% endblock document_container %}
 

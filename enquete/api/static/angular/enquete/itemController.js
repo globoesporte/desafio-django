@@ -2,13 +2,14 @@ enqueteApp
     .controller('itemEditController', ['$scope', '$http', 'urlApi','urlService', function ($scope, $http, urlApi, urlService) {
         $scope.item = {};
         $scope.url = urlApi();
+        $scope.idEnquete = 0;
         
         $scope.init = function(value) {
             
             $http.get(urlService.obterUrl(urlService.Urls.OBTER, value))
                 .then(
                     function(response){
-
+                        $scope.idEnquete = value;
                         $scope.item.nome = response.data.nome;
                         $scope.item.descricao = response.data.descricao;
                         $scope.item.data_criacao = new Date(response.data.data_criacao);
@@ -55,7 +56,7 @@ enqueteApp
             $http.delete(urlService.obterUrl(urlService.Urls.EXCLUIR, obj.e.id), $scope.item)
                  .then(function(response)
                  {
-                    urlService.redirecionar(urlService.Urls.ALL, obj.e.id);
+                    urlService.redirecionar(urlService.Urls.ALL, $scope.idEnquete);
 
                  }, function(response)
                  {
@@ -66,7 +67,7 @@ enqueteApp
         $scope.obterTodos = function(value) 
         {
             $scope.data = {};
-            $scope.item.id = value;
+            $scope.idEnquete  = value;
             $http.get(urlService.obterUrl(urlService.Urls.LISTAR, value))
                  .then(function(response)
                  {
@@ -120,11 +121,11 @@ function urlService(urlApi)
         EDIT :    "item/edit/{0}",
 
         // API
-        LISTAR :  "item/?enquete={0}&format=json",
-        OBTER :   "item/{0}/?format=json",
-        EDITAR :  "item/{0}/",
-        INCLUIR : "item/",
-        EXCLUIR : "item/{0}/"
+        LISTAR :  "api/item/?enquete={0}&format=json",
+        OBTER :   "api/item/{0}/?format=json",
+        EDITAR :  "api/item/{0}/",
+        INCLUIR : "api/item/",
+        EXCLUIR : "api/item/{0}/"
     }
 
     function redirecionar(url, value)

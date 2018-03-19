@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+
 from api.models import Enquete, Item, Voto
 from rest_framework import serializers
 from rest_framework_json_api.relations import ResourceRelatedField
@@ -18,8 +19,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    enquete = serializers.PrimaryKeyRelatedField(read_only=True)
+    
     class Meta:
+        enquete = serializers.PrimaryKeyRelatedField(read_only=True)
         model = Item
         fields = ('id', 'uuid', 'nome', 'descricao', 'data_criacao', 'valor', 'enquete')
 
@@ -30,7 +32,7 @@ class ItemSerializer(serializers.ModelSerializer):
         return item
 
 class EnqueteSerializer(serializers.ModelSerializer):
-    itens = ItemSerializer(many=True)
+    itens = ItemSerializer(many=True, read_only=True)
     class Meta:
         model = Enquete
         fields = ('id', 'uuid', 'nome', 'descricao', 'data_criacao', 'itens')

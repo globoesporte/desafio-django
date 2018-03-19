@@ -1,7 +1,6 @@
-<html>
-  <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="{{ STATIC_URL }}/static/css/modal.css" />
+{% extends "base_site.html" %}
+
+{% block document_container %}
       <style>
               .bd-example {
                   position: relative;
@@ -17,8 +16,7 @@
                   border-width: .2rem 0 0;
               }
       </style>
-  </head>
- <body>
+
      <h2>Lista de Enquetes</h2>
      {% csrf_token %}
      <div class="form-control bd.example col-sm-8" ng-app="enqueteApp" ng-controller="enqueteEditController" ng-init="obterTodos();">
@@ -42,6 +40,8 @@
                 <th class="row">
                     <a class="glyphicon glyphicon-remove" ng-click="excluir(this);" id="{$ e.id $}" ></a>
                     <a class="glyphicon glyphicon-edit" placeholder="Entre com nome" href="/enquete/edit/{$ e.id $}"></a>
+                    <a class="glyphicon glyphicon-ok" placeholder="Votar" href="/votacao/?enquete={$ e.id $}"></a>
+                    
                 </th>
                 <td>{$ e.nome $}</td>
                 <td>{$ e.descricao $}</td>
@@ -53,11 +53,6 @@
           </table>
     </div>
     </div> 
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-cookies.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
     <script src="{{ STATIC_URL }}/static/angular/app.js"></script>
-</body></html>
+{% endblock document_container %}
+
