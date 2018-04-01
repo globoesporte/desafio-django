@@ -9,3 +9,6 @@ user:
 
 shell:
 	python3 manage.py shell
+
+test: 
+	python3 manage.py test

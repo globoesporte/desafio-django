@@ -3,7 +3,8 @@ from .models import Choice, Question
 from datetime import datetime
 
 class QuestionTest(TestCase):
-
+    
+    @classmethod
     def setUpTestData(cls):
         question = Question.objects.create(
                 question_text="texto", pub_date=datetime(2018,2,1))
@@ -24,17 +25,18 @@ class QuestionTest(TestCase):
 
 class ChoiceTest(TestCase):
 
+    @classmethod
     def setUpTestData(cls):
         question = Question.objects.create(
                 question_text="texto", pub_date=datetime(2018,2,1))
         choice =  Choice.objects.create(question = question, choice_text = 'xxx')
 
     def test_question(self):
-        choice = Choice.object.get(id=1)
+        choice = Choice.objects.get(id=1)
         return self.assertEqual(choice.question.id, 1) 
 
     def test_choice_text(self):
-        choice = Choice.object.get(id=1)
+        choice = Choice.objects.get(id=1)
         return self.assertEqual(choice.choice_text, 'xxx')
 
     def test_vote(self):
