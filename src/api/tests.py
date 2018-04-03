@@ -19,7 +19,7 @@ class QuestionsAPITest(APITestCase):
                 'question_text': "lala",
         }
         
-        all_questions_url = '/api'
+        all_questions_url = '/api/'
         user = User.objects.create_superuser(username = "renatinho", email = "x@x.com" ,password = "x")
         self.client.force_authenticate(user = user)
         response = self.client.post(all_questions_url, data, format='json')

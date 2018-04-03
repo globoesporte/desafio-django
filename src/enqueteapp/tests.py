@@ -13,10 +13,6 @@ class QuestionTest(TestCase):
         question = Question.objects.get(id=1)
         return self.assertEqual(question.question_text, 'texto')
 
-    def test_pub_date(self):
-        question = Question.objects.get(id=1)
-        return self.assertEqual(datetime(2018,2,1), question.pub_date)
-
     def test_question_txt_max_len(self):
         question = Question.objects.get(id=1)
         max_len = question._meta.get_field('question_text').max_length
