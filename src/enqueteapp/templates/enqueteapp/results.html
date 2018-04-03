@@ -1,9 +1,28 @@
-<h1>{{ question.question_text }}</h1>
+<!doctype html>
+<html>
 
-<ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-{% endfor %}
-</ul>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <style>
+            body{
+                margin-top: 60px;
+            }
+        </style>
+    </head>
 
-<a href="{% url 'enqueteapp:detail' question.id %}">Vote again?</a>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="text-center">{{ question.question_text }}</h1>
+
+                <ul class="list-group">
+                {% for choice in question.choice_set.all %}
+                    <li class="list-group-item">{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+                {% endfor %}
+                </ul>
+
+                <a href="{% url 'enqueteapp:detail' question.id %}" class="btn btn-primary">Vote again?</a>
+            </div>
+        </div>
+    </body>
+</html>
