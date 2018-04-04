@@ -1,0 +1,10 @@
+version: '2.0'
+
+services:
+  web:
+    build: .
+    command: make run 
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
