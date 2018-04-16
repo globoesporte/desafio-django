@@ -19,4 +19,4 @@
 * Choices
     * 0.0.0.0:8000/api/choices/id_escolha ( id_escolha = id numérico de uma escolha cadastrada )
 * Vote
-    * 0.0.0.0:8000/api/vote/id_escolha ( id_escolha = id numérico de uma escolha cadastrada )
+    * 0.0.0.0:8000/api/choices/vote/id_escolha ( id_escolha = id numérico de uma escolha cadastrada )
